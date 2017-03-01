@@ -1,8 +1,7 @@
 "use strict";
 
-
-app.controller("NavCtrl", function($scope, $window, AuthFactory){
-  // $scope.searchText = SearchTermData; inject SearchTermData once Auth is hooked up
+app.controller("NavCtrl", function($scope, $window, AuthUserFactory){
+  // $scope.searchText = SearchTermData; //TO DO: inject SearchTermData once Auth is hooked up
   $scope.isLoggedIn = false;
 
   firebase.auth().onAuthStateChanged( function(user){
