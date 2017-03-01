@@ -1,3 +1,13 @@
+.nav {
+  border-bottom: 3px;
+  border-color: grey;
+  border-style: solid; }
 
+.logo {
+  margin-top: 5px;
+  margin-left: 5px; }
+
+.material-icons {
+  color: grey; }
 
 /*# sourceMappingURL=main.css.map */

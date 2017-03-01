@@ -5,23 +5,14 @@
 	<meta charset="utf-8">
 
 	<link rel="stylesheet" type="text/css" href="lib/node_modules/materialize-css/dist/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 
 <body ng-app="HellaCoolPinterestProject">
+	  <div ng-include="'partials/NavBar.html'"></div>
 
-
-
-
-
-
-
-
-
-
-
-
-
+		    <div class="col-xs-12" ng-view></div>
 
 
 <script type="text/javascript" src="lib/node_modules/jquery/dist/jquery.min.js"></script>
@@ -37,6 +28,7 @@
 <script type="text/javascript" src="app/factories/HandleFBDataFactory.js"></script>
 <script type="text/javascript" src="app/factories/UserStorageFactory.js"></script>
 
+<script type="text/javascript" src="app/controllers/NavCtrl.js"></script>
 <script type="text/javascript" src="app/controllers/ExploreCtrl.js"></script>
 <script type="text/javascript" src="app/controllers/LoginCtrl.js"></script>
 <script type="text/javascript" src="app/controllers/MainCtrl.js"></script>
@@ -45,6 +37,3 @@
 <script type="text/javascript" src="app/controllers/RegisterCtrl.js"></script>
 </body>
 </html>
-
-
-
