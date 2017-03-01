@@ -1,6 +1,5 @@
 "use strict";
 
-"use strict";
 
 app.controller("NavCtrl", function($scope, $window, AuthFactory){
   // $scope.searchText = SearchTermData; inject SearchTermData once Auth is hooked up
