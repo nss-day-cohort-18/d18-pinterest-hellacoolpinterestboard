@@ -1,0 +1,19 @@
+<nav class="navbar navbar-default transparent" ng-controller="NavCtrl">
+    <div class="nav-wrapper">
+      <a href="#!/index.html" class="brand-logo"><img src="/app/img/Pinterest-badge-144px.png" width=50 class="logo"/></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="#!/explore"><i class="large material-icons">navigation</i></a></li>
+        <li><a href="#!/users/{{user.id}}"><i class="large material-icons">perm_identity</i></a></li>
+        <!-- //TO DO: need to make sure correct data is bound to user -->
+        <li><a href="#!/shopping"><i class="material-icons">shopping_basket</i></a></li>
+        <li><a href="#!/messaging"><i class="material-icons">textsms</i></a></li>
+      </ul>
+    </div>
+    <form>
+     <div class="input-field grey lighten-5">
+       <input id="search" type="search" placeholder="search pins" required>
+       <label class="label-icon" for="search" width=25px><i class="material-icons">search</i></label>
+       <!-- <i class="material-icons">close</i> -->
+     </div>
+   </form>
+  </nav>
