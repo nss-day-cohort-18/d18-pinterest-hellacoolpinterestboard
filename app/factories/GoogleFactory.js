@@ -9,12 +9,14 @@ app.factory("GoogleFactory", function($window, $q, $http, googleCredentials) {
     4.) the title affiliated with the search result. ***** Note that the URL has the query 
     "pinterest" hard coded as the first search term, so each query entered will return
     results affiliated with Pinterest. ***** */
+    let googleDataArray = [];
+
     let GoogleAPI = (searchText) => {
+        // googleDataArray = [];
         return $q((resolve, reject)=>{
             $http.get(`${googleCredentials.URL}`+searchText)
             .then((googleObject)=>{
             console.log("googleObject", googleObject);
-            let googleDataArray = [];
             for (var obj in googleObject.data.items) {
                 let googleDataObj = {};
                 googleDataObj.title = googleObject.data.items[obj].title;
@@ -31,7 +33,12 @@ app.factory("GoogleFactory", function($window, $q, $http, googleCredentials) {
             });
         });
     };
-    return {GoogleAPI};
+
+    let getGoogleDataArray = () => {
+        return googleDataArray;
+    };
+
+    return {GoogleAPI, getGoogleDataArray};
 });
 
 
