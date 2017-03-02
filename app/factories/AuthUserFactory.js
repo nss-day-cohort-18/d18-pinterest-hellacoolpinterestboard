@@ -1,7 +1,5 @@
 "use strict";
 
-
-
 app.factory("AuthUserFactory", function($window) {
 
 	//Information received at registration
@@ -13,7 +11,11 @@ app.factory("AuthUserFactory", function($window) {
 		userName: '', 
 		birthday: '',
 		gender: '',
-		interests: ''
+		interests: '',
+		picture: '',
+		streetAddress: '', 
+		city: '',
+		zip: ''
 	};
 	let currentUser = '';
 	let isLoggedIn = false;
