@@ -1,0 +1,33 @@
+
+<div class="col s8 m8 offset-m2">
+  <form class="col s8 offset-s2 blue-grey darken-1">
+    <h3 class="flow-text"><em>Welcome Back!</em></h3>
+    <p class="lead">You know the drill. Email and password, or sign in with <a class="google" ng-click="loginGoogle()"><span style="color: #4885ed">G</span><span style="color: #db3236">o</span><span style="color: #f4c20d">o</span><span style="color: #4885ed">g</span><span style="color: #3cba54">l</span><span style="color: #db3236">e</span>!</a> </p>
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="email" type="text" class="validate" ng-model="account.email">
+        <label for="email">Email Here: *</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="password" type="password" class="validate" ng-model="account.password">
+        <label for="password">Password</label>
+      </div>
+    </div>
+    <div class="row">
+      <a class="waves-effect waves-light btn" ng-click="login()">Login!</a>
+    </div>
+    <div class="row">
+      <p>Not a user?? <a class="waves-effect waves-light btn" ng-click="clickRegister()">Register Now!</a></p>
+    </div>
+  </form>
+</div>
+
+
+
+
+
+
+
+

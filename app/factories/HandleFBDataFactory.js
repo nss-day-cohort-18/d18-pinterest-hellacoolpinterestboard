@@ -2,7 +2,7 @@
 
 console.log("HandleFBDataFactory.js is connected");
 
-app.factory("HandleFBDataFactory", ($q, $http, FBCreds, AuthUserFactory, UserStorageFactory) => {
+app.factory("HandleFBDataFactory", ($q, $http, $window, FBCreds, AuthUserFactory, UserStorageFactory) => {
 
 	//This function goes to firebase, organizes the object returned, and stores it locally.
 	//Args: Single location string Ex: 'users', 'pins', 'board'
@@ -15,37 +15,48 @@ app.factory("HandleFBDataFactory", ($q, $http, FBCreds, AuthUserFactory, UserSto
 		return $q((resolve, reject) => {
 			$http.get(`${FBCreds.databaseURL}/${location}.json?orderBy="uid"&equalTo="${user}"`).then(
 					(itemObject) => {
-						console.log("This is your itemCollection from within ItemFactory.js getItemList(): ", itemObject.data);
+						console.log("This is your itemCollection from within HandleFBDataFactory.js getItemList(): ", itemObject.data);
 						if (itemObject.data === null) {
 							console.log("You have no data in firebase!");
 							resolve();
 						} else {
-							console.log("Sending the data to be stored in UserStorageFactory.js from getItemList()");
-							if (location === 'board') {
-								AuthUserFactory.changeLogin(true);
-								console.log("Finish setting up getItemList() from HandleFBDataFactory.js. Here is your 'board' obj: ", itemObject);
+							AuthUserFactory.changeLogin(true);
 
-								// let profileInfo = itemObject.data[Object.keys(itemObject.data)[0]];
-								// console.log("You are sending this profile info to be set within UserStorageFactory.js: ", profileInfo);
-								// UserStorageFactory.setCurrentUserProfileInfo(profileInfo);
-								// resolve(profileInfo);								
-							} else if (location === 'pins') {
-								AuthUserFactory.changeLogin(true);
-								console.log("Finish setting up getItemList() from HandleFBDataFactory.js. Here is your 'pins' obj: ", itemObject);
-								// let notesInfo = itemObject.data;
-								// console.log("You are sending this notes info to be set within UserStorageFactory.js: ", notesInfo);
-								// UserStorageFactory.setCurrentUserNotes(notesInfo);
-								// resolve(notesInfo);						
-							} else if (location === 'users') {
-								AuthUserFactory.changeLogin(true);
-								console.log("Finish setting up getItemList() from HandleFBDataFactory.js. Here is your 'users' obj: ", itemObject);
-								// let notesInfo = itemObject.data;
-								// console.log("You are sending this notes info to be set within UserStorageFactory.js: ", notesInfo);
-								// UserStorageFactory.setCurrentUserNotes(notesInfo);
-								// resolve(notesInfo);
+							switch(location) {
+								case 'pins': 
+									let pinsInfo = itemObject.data[Object.keys(itemObject.data)];
+									resolve(pinsInfo);
+									break;
+								case 'board': 
+									let boardInfo = itemObject.data[Object.keys(itemObject.data)];
+									resolve(boardInfo);
+									break;
+								case 'users': 
+									let usersInfo = itemObject.data[Object.keys(itemObject.data)[0]];
+									resolve(usersInfo);
+									break;
 							}
 						}
 				}).catch((error) => reject(error));
+		});
+	};
+
+
+	let getUserInfo = () => {
+		return new Promise((resolve, reject) => {
+			getItemList('users').then(
+    			(usersObjData) => UserStorageFactory.setUserinfo(usersObjData, 'users')
+    		).then(
+    			() => getItemList('pins')
+    		).then(
+    			(pinsObjData) => UserStorageFactory.setUserinfo(pinsObjData, 'pins')
+    		).then(
+    			() => getItemList('board')
+    		).then(
+    			(boardObjData) => UserStorageFactory.setUserinfo(boardObjData, 'board')
+    		).then(
+    			() => resolve()
+    		);
 		});
 	};
 
@@ -79,7 +90,7 @@ app.factory("HandleFBDataFactory", ($q, $http, FBCreds, AuthUserFactory, UserSto
 		});
 	};
 
-	return {getItemList, postNewItem, deleteItem};
+	return {getItemList, getUserInfo, postNewItem, deleteItem};
 });
 
 
