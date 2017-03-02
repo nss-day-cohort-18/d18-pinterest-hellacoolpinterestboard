@@ -1,0 +1,18 @@
+<h2>Please Create a New Board</h2>
+<div class="row">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s6">
+          <i class="material-icons prefix">label_outline</i>
+          <input id="boardName" type="text" class="validate" ng-model="boardName">
+          <label for="boardName">Board Name</label>
+        </div>
+        <div class="input-field col s6">
+          <i class="material-icons prefix">info_outline</i>
+          <input id="boardDescription" type="text" class="validate" ng-model="boardDescription">
+          <label for="boardDescription">Description</label>
+        </div>
+      </div>
+    </form>
+    <a class="waves-effect waves-light btn" ng-click="addBoard()">Submit</a>
+  </div>
