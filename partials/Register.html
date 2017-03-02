@@ -1,0 +1,76 @@
+<div class="col s12 m8 offset-m2">
+  <form class="col s12 blue-grey darken-1">
+    <h3 class="flow-text">Registered AF!</h3>
+    <div class="row">
+      <div class="input-field col s4">
+        <input id="first_name" type="text" class="validate" ng-model="userInfo.firstName">
+        <label for="first_name">First Name</label>
+      </div>
+      <div class="input-field col s8">
+        <input id="last_name" type="text" class="validate" ng-model="userInfo.lastName">
+        <label for="last_name">Last Name</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6">
+        <input id="username" type="text" class="validate" ng-model="userInfo.userName">
+        <label for="username">UserName</label>
+      </div>
+      <div class="input-field col s6">
+        <input id="password" type="password" class="validate" ng-model="userInfo.password">
+        <label for="password">Password</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s8">
+        <input id="email" type="text" class="validate" ng-model="userInfo.email">
+        <label for="email">Email Here!</label>
+      </div>
+      <div class="input-field col s4">
+        <input type="date" class="datepicker" ng-model="userInfo.birthDate">
+      </div>
+    </div>
+    <div class="row" id="mailing-address">
+      <div class="input-field col s4">
+        <input id="street-address" type="text" class="validate" ng-model="userInfo.streetAddress">
+        <label for="street-address">Street Address</label>
+      </div>
+      <div class="input-field col s4">
+        <input id="city" type="text" class="validate" ng-model="userInfo.city">
+        <label for="city">City</label>
+      </div>
+      <div class="input-field col s4">
+        <input id="zip" type="text" class="validate" ng-model="userInfo.zip">
+        <label for="zip">Zip Code</label>
+      </div>
+    </div>
+    <div class="row">
+      <a class="waves-effect waves-light btn" ng-click="clickRegister()">Register!</a>
+    </div>
+  </form>
+
+  <div class="row" ng-repeat="row in rows">
+    <div class="col s6 m3" ng-repeat="category in row">
+      <div class="card">
+        <div>
+          <p class="card-content">Choose {{category}}!!</p>
+        </div>
+        <p class="card-action">
+          <input type="checkbox" id="{{category}}" ng-model="userInfo.interests[category]" ng-true-value="true">
+          <label for="{{category}}">{{category}}</label>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <a class="waves-effect waves-light btn" ng-click="clickExplore()">Go to Explore!!</a>
+  </div>
+
+</div>
+
+
+
+
+
+
+
