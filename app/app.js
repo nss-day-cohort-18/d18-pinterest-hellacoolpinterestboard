@@ -6,6 +6,10 @@ var app = angular.module("HellaCoolPinterestProject", ["ngRoute"]);
     when('/explore', {
         templateUrl: '../partials/Explore.html',
         controller: "ExploreCtrl"
+    }).
+    when('/newBoard', {
+    	templateUrl: '../partials/NewBoard.html',
+    	controller: 'NewBoardCtrl'
     });
 });
 
