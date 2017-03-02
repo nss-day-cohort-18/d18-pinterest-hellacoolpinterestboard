@@ -97,6 +97,8 @@ app.controller("RegisterCtrl", function($scope, $window, AuthUserFactory, Handle
 							HandleFBDataFactory.postNewItem(s.userInfo, 'users').then(
 								(profileObjFromFirebase) => {
 									console.log("Here is your profile info from firebase: ", profileObjFromFirebase);
+
+									profileObjFromFirebase.data.name = 
 									// send User Info from firebase to be stored within localstorage
 									UserStorageFactory.setUserinfo(s.userInfo, 'users');
 									s.userInfo = {};
