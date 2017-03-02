@@ -2,14 +2,14 @@
 
 console.log("HandleFBDataFactory.js is connected");
 
-app.factory("HandleFBDataFactory", ($q, $http, FBCreds, AuthFactory, UserStorageFactory) => {
+app.factory("HandleFBDataFactory", ($q, $http, FBCreds, AuthUserFactory, UserStorageFactory) => {
 
 	//This function goes to firebase, organizes the object returned, and stores it locally.
 	//Args: Single location string Ex: 'users', 'pins', 'board'
 	//Return: locationInfo Obj
 	let getItemList = (location) => {
 
-		let user = AuthFactory.getUser();
+		let user = AuthUserFactory.getUser();
 		console.log("I am now within HandleFBDataFactory.js getItemList() to get: ", location);
 
 		return $q((resolve, reject) => {
@@ -22,7 +22,7 @@ app.factory("HandleFBDataFactory", ($q, $http, FBCreds, AuthFactory, UserStorage
 						} else {
 							console.log("Sending the data to be stored in UserStorageFactory.js from getItemList()");
 							if (location === 'board') {
-								AuthFactory.changeLogin(true);
+								AuthUserFactory.changeLogin(true);
 								console.log("Finish setting up getItemList() from HandleFBDataFactory.js. Here is your 'board' obj: ", itemObject);
 
 								// let profileInfo = itemObject.data[Object.keys(itemObject.data)[0]];
@@ -30,14 +30,14 @@ app.factory("HandleFBDataFactory", ($q, $http, FBCreds, AuthFactory, UserStorage
 								// UserStorageFactory.setCurrentUserProfileInfo(profileInfo);
 								// resolve(profileInfo);								
 							} else if (location === 'pins') {
-								AuthFactory.changeLogin(true);
+								AuthUserFactory.changeLogin(true);
 								console.log("Finish setting up getItemList() from HandleFBDataFactory.js. Here is your 'pins' obj: ", itemObject);
 								// let notesInfo = itemObject.data;
 								// console.log("You are sending this notes info to be set within UserStorageFactory.js: ", notesInfo);
 								// UserStorageFactory.setCurrentUserNotes(notesInfo);
 								// resolve(notesInfo);						
 							} else if (location === 'users') {
-								AuthFactory.changeLogin(true);
+								AuthUserFactory.changeLogin(true);
 								console.log("Finish setting up getItemList() from HandleFBDataFactory.js. Here is your 'users' obj: ", itemObject);
 								// let notesInfo = itemObject.data;
 								// console.log("You are sending this notes info to be set within UserStorageFactory.js: ", notesInfo);

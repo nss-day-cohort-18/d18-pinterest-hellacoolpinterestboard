@@ -1,3 +1,6 @@
+.card-content {
+  min-height: 92px; }
+
 .nav {
   border-bottom: 3px;
   border-color: grey;
