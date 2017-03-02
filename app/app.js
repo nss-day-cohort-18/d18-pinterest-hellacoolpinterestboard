@@ -32,11 +32,15 @@ app.config(function($routeProvider, $locationProvider) {
 	$routeProvider
 		.when('/register', {
 			templateUrl: '/partials/Register.html',
-			controller: 'RegisterCtrl',
+			controller: 'RegisterCtrl'
 		})
 		.when('/explore', {
 			templateUrl: '/partials/Explore.html',
-			controller: 'ExploreCtrl',
+			controller: 'ExploreCtrl'
+		})
+		.when('/login', {
+			templateUrl: '/partials/Login.html',
+			controller: 'LoginCtrl'
 		})
 		.otherwise('/register');
 });

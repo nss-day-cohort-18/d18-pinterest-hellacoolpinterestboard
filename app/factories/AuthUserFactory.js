@@ -61,8 +61,7 @@ app.factory("AuthUserFactory", function($window) {
 	//Args: boolean
 	//Changes isLoggedIn boolean
 	let changeLogin = (loginState) => {
-		console.log("Everything is commented out. Check to make sure this will work first! changeLogin() AuthUserFactory.js");
-		// isLoggedIn = loginState;
+		isLoggedIn = loginState;
 	}; 
 	
 
@@ -108,7 +107,7 @@ app.factory("AuthUserFactory", function($window) {
 	//Sign in with given provider using Firebase
 	//Args: providerType Ex: googleProvider
 	//Return: 
-	let authWithProvider = (provider) => firebase.auth().signInWithPopup(provider);
+	let authWithProvider = () => firebase.auth().signInWithPopup(googleProvider);
 
 	return {createUser,
 					loginUser, 
