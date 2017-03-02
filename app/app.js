@@ -42,6 +42,10 @@ app.config(function($routeProvider, $locationProvider) {
 			templateUrl: '/partials/Login.html',
 			controller: 'LoginCtrl'
 		})
+		.when('/profile', {
+			templateUrl: '/partials/Profile.html',
+			controller: 'ProfileCtrl'
+		})
 		.otherwise('/register');
 });
 
