@@ -1,6 +1,14 @@
 "use strict";
 
 var app = angular.module("HellaCoolPinterestProject", ["ngRoute"]);
+	app.config(function($routeProvider){
+    $routeProvider.
+    when('/', {
+        templateUrl: '../partials/Explore.html',
+        controller: "ExploreCtrl"
+    });
+});
+
 
 //resolve for the app to check whether or not a user is logged in
 let isAuth = (AuthFactory) => new Promise ((resolve, reject) => {
