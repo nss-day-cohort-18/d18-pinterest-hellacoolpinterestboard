@@ -9,7 +9,7 @@
       <li ng-show="!isLoggedIn"><a href="#!/messaging"><i class="material-icons">textsms</i></a></li>
     </ul>
   </div>
-  <form ng-submit="searchGoogle()">
+  <form ng-submit="searchGoogle($event)">
    <div class="input-field grey lighten-5">
      <input id="search" type="search" placeholder="search pins" required ng-model="searchText">
      <label class="label-icon" for="search" width=25px><i class="material-icons">search</i></label>
