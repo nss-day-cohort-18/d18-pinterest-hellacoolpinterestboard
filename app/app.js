@@ -1,7 +1,6 @@
 "use strict";
 
 var app = angular.module("HellaCoolPinterestProject", ["ngRoute"]);
-
 	app.config(function($routeProvider){
     $routeProvider.
     when('/', {
@@ -9,4 +8,5 @@ var app = angular.module("HellaCoolPinterestProject", ["ngRoute"]);
         controller: "ExploreCtrl"
     });
 });
+
 
