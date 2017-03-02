@@ -22,7 +22,6 @@ app.controller("NavCtrl", function($scope, $window, AuthUserFactory, GoogleFacto
 	appends it as a query. It then sets the returned array of objects as $scope.data, 
 	which binds to the Explore partial via ng-repeat.*/
   $scope.searchGoogle = function(){
-  		console.log("click", $scope.searchText);
 		let searchText = $scope.searchText;
 		GoogleFactory.GoogleAPI(searchText).
 		then(()=>{

@@ -12,11 +12,11 @@ app.factory("GoogleFactory", function($window, $q, $http, googleCredentials) {
     let googleDataArray = [];
 
     let GoogleAPI = (searchText) => {
-        // googleDataArray = [];
         return $q((resolve, reject)=>{
             $http.get(`${googleCredentials.URL}`+searchText)
             .then((googleObject)=>{
             console.log("googleObject", googleObject);
+                // googleDataArray = [];
             for (var obj in googleObject.data.items) {
                 let googleDataObj = {};
                 googleDataObj.title = googleObject.data.items[obj].title;
