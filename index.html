@@ -5,10 +5,19 @@
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="lib/node_modules/materialize-css/dist/css/materialize.min.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+
  	<link rel="stylesheet" type="text/css" href="css/main.css">
+
 </head>
 <body ng-app="HellaCoolPinterestProject">
+
+<div ng-view>
+</div>
+
 	  <div ng-include="'partials/NavBar.html'"></div>
+
 
 		    <div class="col-xs-12" ng-view></div>
 
@@ -22,6 +31,7 @@
 <script type="text/javascript" src="app/app.js"></script>
 <script type="text/javascript" src="app/values/firebaseAPIConfig.js"></script>
 <script type="text/javascript" src="app/values/googleAPIConfig.js"></script>
+<script type="text/javascript" src="app/factories/GoogleFactory.js"></script>
 <script type="text/javascript" src="app/factories/AuthUserFactory.js"></script>
 <script type="text/javascript" src="app/factories/HandleFBDataFactory.js"></script>
 <script type="text/javascript" src="app/factories/UserStorageFactory.js"></script>
