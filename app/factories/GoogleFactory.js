@@ -34,11 +34,22 @@ app.factory("GoogleFactory", function($window, $q, $http, googleCredentials) {
         });
     };
 
+    let storedPin;
+    
+    let storePinForBoard = (pin) => {
+        storedPin = pin;
+        console.log("storedPin", storedPin);
+    };
+
+    let getStoredPin = () => {
+        return storedPin;
+    };
+
     let getGoogleDataArray = () => {
         return googleDataArray;
     };
 
-    return {GoogleAPI, getGoogleDataArray};
+    return {GoogleAPI, getGoogleDataArray, storePinForBoard, getStoredPin};
 });
 
 

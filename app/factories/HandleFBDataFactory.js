@@ -68,7 +68,7 @@ app.factory("HandleFBDataFactory", ($q, $http, $window, FBCreds, AuthUserFactory
 	let postNewItem = (newItem, location) => {
 		return $q((resolve, reject) => {
 			$http.post(`${FBCreds.databaseURL}/${location}.json`,
-				JSON.stringify(newItem))
+				angular.toJson(newItem))
 					.then(
 						(ObjectFromFirebase) => {
 							console.log("Here is my obj from firebase from HandleFBDataFactory.js postNewItem(): ", ObjectFromFirebase);
