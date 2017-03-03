@@ -23,7 +23,7 @@ app.factory("GoogleFactory", function($window, $q, $http, googleCredentials) {
                 googleDataObj.link = googleObject.data.items[obj].link;
                 googleDataObj.image = googleObject.data.items[obj].pagemap.cse_image[0].src;
                 googleDataObj.snippet = googleObject.data.items[obj].snippet;
-                googleDataArray.push(googleDataObj);
+                googleDataArray.unshift(googleDataObj);
                 }
                 console.log("googleDataArray", googleDataArray);
                 resolve(googleDataArray);
