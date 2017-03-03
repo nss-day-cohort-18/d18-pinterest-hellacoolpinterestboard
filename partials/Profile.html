@@ -7,6 +7,9 @@
         <img src="pin.image">        
       </div>      
     </div>
+    <div class="row">
+      <a class="waves-effect waves-light btn" ng-click="deleteBoard(boardIDs[$index])">Delete Me!!</a>
+    </div>
   </div>
 </div>
 
@@ -18,6 +21,9 @@
       <h3>{{pin.title}}</h3>   
       <p>{{pin.snippet}}</p>
       <p><a href="{{pin.link}}">Look it up!</a></p>
+    </div>
+    <div class="row">
+      <a class="waves-effect waves-light btn" ng-click="deletePin(pin.uglyId)">Delete Me!!</a>
     </div>
   </div>
 </div>

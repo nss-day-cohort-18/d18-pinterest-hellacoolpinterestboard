@@ -24,7 +24,7 @@ app.factory("HandleFBDataFactory", ($q, $http, $window, FBCreds, AuthUserFactory
 
 							switch(location) {
 								case 'pins': 
-									let pinsInfo = itemObject.data[Object.keys(itemObject.data)];
+									let pinsInfo = itemObject.data;
 									resolve(pinsInfo);
 									break;
 								case 'board': 
@@ -68,7 +68,7 @@ app.factory("HandleFBDataFactory", ($q, $http, $window, FBCreds, AuthUserFactory
 	let postNewItem = (newItem, location) => {
 		return $q((resolve, reject) => {
 			$http.post(`${FBCreds.databaseURL}/${location}.json`,
-				JSON.stringify(newItem))
+				angular.toJson(newItem))
 					.then(
 						(ObjectFromFirebase) => {
 							console.log("Here is my obj from firebase from HandleFBDataFactory.js postNewItem(): ", ObjectFromFirebase);
@@ -82,11 +82,16 @@ app.factory("HandleFBDataFactory", ($q, $http, $window, FBCreds, AuthUserFactory
 
 	//Function to remove items from a specific collection from within Firebase
 	//Args(2): itemID: string assigned by firebase, location: string for specific collection Ex: ('users', 'board', 'pins')
-	let deleteItem = (itemID, location) => {
+	let deleteItem = (itemID, location, forBoardRemoval) => {
 		console.log('Within ItemFactory.js deleteItem(): ', itemID, 'location: ', location);
 		return $q((resolve, reject) => {
-			$http.delete(`${FBCreds.databaseURL}/${location}/${itemID}.json`)
-				.then((ObjectFromFirebase) => resolve(ObjectFromFirebase));
+			if (forBoardRemoval) {
+				$http.delete(`${FBCreds.databaseURL}/${location}.json?orderBy="boardid"&equalTo="${itemID}"`)
+					.then((ObjectFromFirebase) => resolve(ObjectFromFirebase));
+			} else {
+				$http.delete(`${FBCreds.databaseURL}/${location}/${itemID}.json`)
+					.then((ObjectFromFirebase) => resolve(ObjectFromFirebase));
+			}
 		});
 	};
 

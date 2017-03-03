@@ -1,0 +1,59 @@
+{
+  "board" : {
+    "-KeFGYWlgCWrRyHXb_ux": 
+      { 
+        "uid": "PA8ICKn0wkZrICwkYQcvMr2pFdE2",
+        "title": "Sports" 
+      }
+    },
+  "pins" : { 
+    "-KeFGYWlgCWrRyHXb_uv" : 
+      {
+        "uid": "PA8ICKn0wkZrICwkYQcvMr2pFdE2",
+        "boardid": "-KeFGYWlgCWrRyHXb_ux",
+        "image" : "https://s-media-cache-ak0.pinimg.com/736x/d5/71/86/d57186711ed9862f5f90796869910466.jpg",
+        "link" : "https://www.pinterest.com/shawnabakken/soccer-stuffs-a-tribute/",
+        "snippet": "Soccer is such a HUGE part of our family's life. My husband has coached my kids ↵since they were both in Kindergarten! We have spent a lot of years cheering ...",
+        "title": "1000+ images about Soccer Stuffs - A Tribute on Pinterest | Soccer ..."
+      }
+  },
+  "users" : {
+    "-KeFGYWlgCWrRyHXb_ut" : {
+      "birthDate" : "1995-11-17T06:00:00.000Z",
+      "city" : "Goodlettsville",
+      "email" : "perkinstaylor.luthier@gmail.com",
+      "firstName" : "Taylor",
+      "interests" : {
+        "Animals" : false,
+        "Architecture" : false,
+        "Art" : true,
+        "Cars" : false,
+        "Celebs" : false,
+        "Design" : false,
+        "Education" : false,
+        "Entertainment" : true,
+        "Gardens" : false,
+        "Geek" : true,
+        "Health" : false,
+        "History" : false,
+        "Holiday & Party" : false,
+        "Illustrations" : false,
+        "Kids" : false,
+        "Outdoors" : false,
+        "Photography" : false,
+        "Quotes" : true,
+        "Science" : false,
+        "Sports" : false,
+        "Tattoos" : true,
+        "Tech" : true,
+        "Weddings" : false
+      },
+      "lastName" : "Perkins",
+      "password" : "",
+      "streetAddress" : "8342 Old Springfield Pike",
+      "uid" : "PA8ICKn0wkZrICwkYQcvMr2pFdE2",
+      "userName" : "badA33",
+      "zip" : "37072"
+    }
+  }
+}
