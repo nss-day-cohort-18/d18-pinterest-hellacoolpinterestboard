@@ -24,7 +24,7 @@ app.controller("RegisterCtrl", function($scope, $window, AuthUserFactory, Handle
 
 		let rowToPush = [];
 		for (var category = 0; category < s.interests.length + 1; category++) {
-			if ((s.interests[category] === undefined)) {
+			if (!(s.interests[category] === undefined)) {
 				s.userInfo.interests[s.interests[category]] = false;
 				if (category === 0) {
 					rowToPush.push(s.interests[category]);

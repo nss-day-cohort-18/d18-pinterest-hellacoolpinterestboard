@@ -3,7 +3,7 @@
 app.controller('ExploreCtrl', function($scope, $window, GoogleFactory, UserStorageFactory){
 
     $scope.data = GoogleFactory.getGoogleDataArray();
-    
+
     let checkboards = () => {
         let boards = UserStorageFactory.getUserInfo("board");
         console.log("board", boards);
@@ -24,5 +24,5 @@ app.controller('ExploreCtrl', function($scope, $window, GoogleFactory, UserStora
         console.log("ObjectToAdd", ObjectToAdd);
         //TODO: add pin to appropriate board
     };
-	
+
 });

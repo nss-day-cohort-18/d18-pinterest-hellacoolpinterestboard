@@ -22,12 +22,14 @@
 	margin-right: 10%;
 	margin-top: 7%;
 	padding-top: 1%;
-	box-shadow: 0 0 3px 0.5px black;
+	box-shadow: 0 0 3px 0.5px grey;
 	color: rgba(189, 008, 028, 100);
 }
 
 #form-background {
-	background-image: url(http://res.cloudinary.com/emma/image/upload/c_scale,o_21,w_1000/v1488507484/pinterest-shopping_kxnb70.jpg);
+	background-image: url(http://res.cloudinary.com/emma/image/upload/c_scale,o_21,w_1200/v1488507484/pinterest-shopping_kxnb70.jpg);
+	background-repeat: no-repeat;
+	max-height: 50%;
 }
 
 .flow-text {
@@ -37,3 +39,37 @@
 /*=======================================================
 			Buttons
 ========================================================*/
+#register-btn {
+	text-transform: none;
+	border-radius: 50px;
+	margin-left: 45%;
+	margin-bottom: 2%;
+}
+
+#explore-btn {
+	margin-left: 49%;
+	-webkit-animation-name: fadeInUpBig;
+  animation-name: fadeInUpBig;
+}
+
+.card {
+	border-radius: 10px;
+}
+
+.card-content {
+	text-align: center;
+}
+
+.card-action {
+	border-radius: 10px;
+	font-family: 'Pacifico', cursive;
+}
+
+ .card-action:hover {
+	box-shadow: inset 0 0 15px 3px rgba(0,0,0,0.05);
+	border-radius: 10px;
+}
+
+#category {
+	color: rgba(189, 008, 028, 100);
+}
