@@ -3,6 +3,7 @@
 app.controller('ExploreCtrl', function($scope, $window, GoogleFactory, UserStorageFactory, HandleFBDataFactory, AuthUserFactory){
 
     $scope.data = GoogleFactory.getGoogleDataArray();
+
     
     /* This function checks Firebase to determine whether the current user has a board. It
     returns the user's boards.*/
@@ -46,8 +47,8 @@ app.controller('ExploreCtrl', function($scope, $window, GoogleFactory, UserStora
         ObjectToAdd = result;
         console.log("ObjectToAdd", ObjectToAdd);
     };
-
-    /*This function receives the data from the card clicked on the partial. It uses that 
+  
+  /*This function receives the data from the card clicked on the partial. It uses that 
     data to amend the ObjectToAdd with the boardid. It also adds the userid to the object 
     and sends it to Firebase.*/
     $scope.pinToBoard = (board) => {
@@ -69,4 +70,5 @@ app.controller('ExploreCtrl', function($scope, $window, GoogleFactory, UserStora
         console.log("ObjectToAdd at Send", ObjectToAdd);
         GoogleFactory.storePinForBoard(ObjectToAdd);
     };
+
 });

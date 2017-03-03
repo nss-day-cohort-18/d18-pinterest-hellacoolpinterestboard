@@ -20,7 +20,7 @@ app.controller("RegisterCtrl", function($scope, $window, AuthUserFactory, Handle
 		};
 
 		s.rows = [];
-		s.interests = ['Animals', 'Architecture', 'Art', 'Cars', 'Celebs', 'Design', 'Education', 'Entertainment', 'Gardens', 'Geek', 'Health', 'History', 'Holiday & Party', 'Illustrations', 'Kids', 'Outdoors', 'Photography', 'Quotes', 'Science', 'Sports', 'Tattoos', 'Tech', 'Weddings']; 
+		s.interests = ['Animals', 'Architecture', 'Art', 'Cars', 'Celebs', 'Design', 'Education', 'Entertainment', 'Gardens', 'Geek', 'Health', 'History', 'Holiday & Party', 'Illustrations', 'Kids', 'Outdoors', 'Photography', 'Quotes', 'Science', 'Sports', 'Tattoos', 'Tech', 'Weddings'];
 
 		let rowToPush = [];
 		for (var category = 0; category < s.interests.length + 1; category++) {
@@ -64,7 +64,7 @@ app.controller("RegisterCtrl", function($scope, $window, AuthUserFactory, Handle
 		//				 location= string for userInfo (birthDay, birthMonth, birthYear)
 		s.setBirthInfo = (birthValue, location) => s.userInfo[location] = birthValue;
 
-		//Takes all information saved within s.userInfo, checks to make sure all required fields are 
+		//Takes all information saved within s.userInfo, checks to make sure all required fields are
 		//filled out and sends the information to firebase to be updated
 		s.clickRegister = () => {
 			console.log("You clicked registerNewUser()");
@@ -81,7 +81,7 @@ app.controller("RegisterCtrl", function($scope, $window, AuthUserFactory, Handle
 		s.clickExplore = () => {
 			if (!(s.userInfo.hasOwnProperty('interests'))) {
 				console.log("Add some stuffffff");
-			} else { 
+			} else {
 				let myInterests = Object.keys(s.userInfo.interests);
 				if (myInterests.length < 4) {
 					alert("Add 4 interests please!");
@@ -98,7 +98,7 @@ app.controller("RegisterCtrl", function($scope, $window, AuthUserFactory, Handle
 								(profileObjFromFirebase) => {
 									console.log("Here is your profile info from firebase: ", profileObjFromFirebase);
 
-									profileObjFromFirebase.data.name = 
+									profileObjFromFirebase.data.name =
 									// send User Info from firebase to be stored within localstorage
 									UserStorageFactory.setUserinfo(s.userInfo, 'users');
 									s.userInfo = {};
@@ -111,18 +111,3 @@ app.controller("RegisterCtrl", function($scope, $window, AuthUserFactory, Handle
 			}
 		};
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

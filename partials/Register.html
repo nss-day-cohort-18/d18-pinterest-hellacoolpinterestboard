@@ -1,5 +1,5 @@
-<div class="col s12 m8 offset-m2">
-  <form class="col s12 blue-grey darken-1">
+<div class="col s12 m8 offset-m2" id="form-background">
+  <form class="col s12 grey lighten-3" id="registerForm">
     <h3 class="flow-text">Registered AF!</h3>
     <div class="row">
       <div class="input-field col s4">
@@ -14,7 +14,7 @@
     <div class="row">
       <div class="input-field col s6">
         <input id="username" type="text" class="validate" ng-model="userInfo.userName">
-        <label for="username">UserName</label>
+        <label for="username">User Name</label>
       </div>
       <div class="input-field col s6">
         <input id="password" type="password" class="validate" ng-model="userInfo.password">
@@ -45,7 +45,7 @@
       </div>
     </div>
     <div class="row">
-      <a class="waves-effect waves-light btn" ng-click="clickRegister()">Register!</a>
+      <a class="waves-effect waves-light btn red darken-3" id="register-btn" ng-click="clickRegister()">Register</a>
     </div>
   </form>
 
@@ -53,24 +53,18 @@
     <div class="col s6 m3" ng-repeat="category in row">
       <div class="card">
         <div>
-          <p class="card-content">Choose {{category}}!!</p>
+          <p class="card-content">I  <img src="app/img/heart.png" width="15px"/>  {{category}}!!</p>
         </div>
         <p class="card-action">
           <input type="checkbox" id="{{category}}" ng-model="userInfo.interests[category]" ng-true-value="true">
-          <label for="{{category}}">{{category}}</label>
+          <label for="{{category}}" id="category">{{category}}</label>
         </p>
       </div>
     </div>
   </div>
   <div class="row">
-    <a class="waves-effect waves-light btn" ng-click="clickExplore()">Go to Explore!!</a>
+    <a class="btn-floating btn-large waves-effect waves-light red darken-3 hoverable" ng-click="clickExplore()" id="explore-btn"><i class="large material-icons">navigation</i></a>
+    <p id="explore-text">Explore...</p>
   </div>
 
 </div>
-
-
-
-
-
-
-
