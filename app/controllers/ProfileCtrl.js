@@ -80,22 +80,40 @@ app.controller("ProfileCtrl", function($scope, $window, AuthUserFactory, UserSto
 		}
 	};
 
+	let deleteAllPins = (boardID) => {
+		return new Promise((resolve, reject) => {
+			for (var board in s.boards) {
+				if (Object.keys(s.boards[board])[0] === boardID) {
+					s.boards[board][boardID].pins.forEach((pin) => {
+						console.log(pin);
+						HandleFBDataFactory.deleteItem(pin.uglyId, 'pins');
+					});
+				}
+			}
+			resolve();
+		});
+	};
+
 	s.deleteBoard = (boardUglyId) => {
 		console.log("About to delete a board and all of it's pins");
 		s.boardUglyId = boardUglyId;
-		HandleFBDataFactory.deleteItem(s.boardUglyId, 'board').then(
-			(boardObjStatusFirebase) => HandleFBDataFactory.getItemList('board')
-		).then(
-			(boardObjFromFirebase) => UserStorageFactory.setUserinfo(boardObjFromFirebase, 'board')
-		).then(
-			() => HandleFBDataFactory.deleteItem(s.boardUglyId, 'pins', true)
-		).then(
-			(pinsObjStatusFirebase) => HandleFBDataFactory.getItemList('pins')
-		).then(
-			(pinsObjFromFirebase) => UserStorageFactory.setUserinfo(pinsObjFromFirebase, 'pins')
-		).then(
-			() => $window.location.reload()
-		);
+		deleteAllPins(s.boardUglyId).then(
+				() => HandleFBDataFactory.getItemList('pins')
+			).then(
+				(pinsObjFromFirebase) => UserStorageFactory.setUserinfo(pinsObjFromFirebase, 'pins')
+			).then(
+				() => HandleFBDataFactory.deleteItem(s.boardUglyId, 'board')
+			).then(
+				(boardObjStatusFirebase) => HandleFBDataFactory.getItemList('board')
+			).then(
+				(boardObjFromFirebase) => UserStorageFactory.setUserinfo(boardObjFromFirebase, 'board')
+			).then(
+				() => UserStorageFactory.deleteLocalStorage('pins')
+			).then(
+				() => UserStorageFactory.deleteLocalStorage('board')
+			).then(
+				$window.location.reload()
+			);			
 	};
 
 	s.deletePin = (pinUglyId) => {
