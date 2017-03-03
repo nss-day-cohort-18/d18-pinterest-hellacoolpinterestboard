@@ -56,7 +56,7 @@ app.controller("ProfileCtrl", function($scope, $window, AuthUserFactory, UserSto
 					}					
 				}
 			}
-		});		
+		});
 	}
 
 	s.boardClicked = (boardInfo) => {

@@ -1,12 +1,13 @@
+<div class="row">
+  <div class="col s7 push-s4" id="login-form-container">
 
-<div class="col s8 m8 offset-m2">
-  <form class="col s8 offset-s2 blue-grey darken-1">
-    <h3 class="flow-text"><em>Welcome Back!</em></h3>
-    <p class="lead">You know the drill. Email and password, or sign in with <a class="google" ng-click="loginGoogle()"><span style="color: #4885ed">G</span><span style="color: #db3236">o</span><span style="color: #f4c20d">o</span><span style="color: #4885ed">g</span><span style="color: #3cba54">l</span><span style="color: #db3236">e</span>!</a> </p>
+  <form class="col s12 offset-s2 grey lighten-4" id="welcome">
+    <h3 class="flow-text"><em id="welcome-text">Welcome Back!</em></h3>
+    <p class="lead">You Know the Drill... <br> Email and Password <strong>OR</strong> Sign in With <br> <a class="google" ng-click="loginGoogle()"><span style="color: #4885ed">G</span><span style="color: #db3236">o</span><span style="color: #f4c20d">o</span><span style="color: #4885ed">g</span><span style="color: #3cba54">l</span><span style="color: #db3236">e</span></a> </p>
     <div class="row">
       <div class="input-field col s12">
         <input id="email" type="text" class="validate" ng-model="account.email">
-        <label for="email">Email Here: *</label>
+        <label for="email">Email: </label>
       </div>
     </div>
     <div class="row">
@@ -16,18 +17,13 @@
       </div>
     </div>
     <div class="row">
-      <a class="waves-effect waves-light btn" ng-click="login()">Login!</a>
+      <a class="waves-effect waves-light btn hoverable" id="login" ng-click="login()">Login</a>
     </div>
     <div class="row">
-      <p>Not a user?? <a class="waves-effect waves-light btn" ng-click="clickRegister()">Register Now!</a></p>
+      <p id="no-user">Not a user?? <br> <a class="waves-effect waves-light btn hoverable" id="register2-btn" ng-click="clickRegister()">Register Now!</a></p>
     </div>
   </form>
+
 </div>
-
-
-
-
-
-
-
-
+  <div class="col s5 pull-s7" id="test"></div>
+ </div>
