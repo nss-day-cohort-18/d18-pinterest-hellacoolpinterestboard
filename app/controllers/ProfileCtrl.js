@@ -24,16 +24,16 @@ app.controller("ProfileCtrl", function($scope, $window, AuthUserFactory, UserSto
 					let myKey = myPin.boardid;
 					let myUID = myPin.uid;
 
-					console.log(myKey, myUID); 
+					console.log(myKey, myUID);
 					if (s.boards[s.boardIDs.indexOf(myKey)][myKey].pins) {
 						s.boards[s.boardIDs.indexOf(myKey)][myKey].pins.push(myPin);
 					} else {
 						s.boards[s.boardIDs.indexOf(myKey)][myKey].pins = [];
-						s.boards[s.boardIDs.indexOf(myKey)][myKey].pins.push(myPin);					
-					}					
+						s.boards[s.boardIDs.indexOf(myKey)][myKey].pins.push(myPin);
+					}
 				}
 			}
-		});		
+		});
 	}
 
 	s.boardClicked = (boardInfo) => {

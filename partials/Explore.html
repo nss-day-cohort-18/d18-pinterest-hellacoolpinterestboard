@@ -1,6 +1,6 @@
- 
+
 <div class="row" ng-show="boardExists">
-  <h2>Please Select A Board</h2>
+  <h2 id="select-board">Please Select A Board</h2>
   <div class="col s12 m6">
     <div class="card" id={{board.key}}>
         <span class="card-title">New Board</span>
@@ -28,7 +28,7 @@
       <div class="card-image">
         <img src="{{result.image}}">
         <span class="card-title">{{result.title}}</span>
-        <a class="btn-floating halfway-fab waves-effect waves-light red" ng-click="addPin(result)"><i class="material-icons">add</i></a>
+        <a class="btn-floating halfway-fab waves-effect waves-light red hoverable" ng-click="addPin(result)"><img src="app/img/Pin-48.png" id="pin"></a>
       </div>
       <div class="card-content">
         <p>{{result.snippet}}</p>
@@ -39,4 +39,3 @@
     </div>
   </div>
 </div>
-
