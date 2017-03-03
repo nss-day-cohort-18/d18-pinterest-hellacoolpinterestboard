@@ -24,7 +24,7 @@ app.factory("HandleFBDataFactory", ($q, $http, $window, FBCreds, AuthUserFactory
 
 							switch(location) {
 								case 'pins': 
-									let pinsInfo = itemObject.data[Object.keys(itemObject.data)];
+									let pinsInfo = itemObject.data;
 									resolve(pinsInfo);
 									break;
 								case 'board': 
