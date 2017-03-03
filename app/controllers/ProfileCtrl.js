@@ -64,7 +64,6 @@ app.controller("ProfileCtrl", function($scope, $window, AuthUserFactory, UserSto
 
 		s.pinsToDisplay = [];
 		let myPins = [];
-		debugger;
 		for (var pin = 0; pin < boardInfo.pins.length; pin++) {
 			if (pin === boardInfo.pins.length - 1) {
 				myPins.push(boardInfo.pins[pin]);
