@@ -33,8 +33,15 @@ app.factory("UserStorageFactory", function() {
 			}
 		});
 	};
+
+	let deleteLocalStorage = (location) => {
+		return new Promise((resolve, reject) => {
+			localStorage.removeItem(location);
+			resolve();
+		});
+	};
 	
-	return {getUserInfo, setUserinfo};
+	return {getUserInfo, setUserinfo, deleteLocalStorage};
 });
 
 

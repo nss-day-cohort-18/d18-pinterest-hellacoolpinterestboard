@@ -9,7 +9,6 @@ app.controller('ExploreCtrl', function($scope, $window, GoogleFactory, UserStora
     returns the user's boards.*/
     let checkboards = () => {
         let boards = UserStorageFactory.getUserInfo("board");
-        console.log("boards", boards);
         return boards;
     };
 
@@ -23,25 +22,25 @@ app.controller('ExploreCtrl', function($scope, $window, GoogleFactory, UserStora
     This function also saves the data from the selected pin as ObjectToAdd in order to add
     it to a board below.*/
     $scope.addPin = (result) => {
-        if (checkboards() === null) {
+        let myBoards = checkboards();
+        if (myBoards === null) {
             $window.location.href = "#!/newBoard";
-            console.log("checkboards()", checkboards());
             return;
         } else {
             $scope.boardExists = true;
             let boards = UserStorageFactory.getUserInfo("board");
-            let keyArray = Object.keys(boards[0]);
+            let myBoards = boards[boards.length - 1];
+            console.log("These are my boards from UserStorage: ", myBoards);
+            let keyArray = Object.keys(myBoards);
             let boardArray = [];
             for (var i = 0; i < keyArray.length; i++) {
                 let newBoardObject = {};
                 newBoardObject.key = keyArray[i];
-                newBoardObject.title = boards[0][keyArray[i]].title;
-                newBoardObject.description = boards[0][keyArray[i]].description;
+                newBoardObject.title = myBoards[keyArray[i]].title;
+                newBoardObject.description = myBoards[keyArray[i]].description;
                 boardArray.push(newBoardObject);
-                console.log("boardArray", boardArray);
                 $scope.boards = boardArray;
             }
-
         }
         ObjectToAdd = {};
         ObjectToAdd = result;
