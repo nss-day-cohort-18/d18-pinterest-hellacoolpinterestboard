@@ -1,6 +1,6 @@
 "use strict";
 
-app.factory("AuthUserFactory", function($window) {
+app.factory("AuthUserFactory", function($window, UserStorageFactory) {
 
 	//Information received at registration
 	let loggedInUserInfo = {
@@ -17,7 +17,7 @@ app.factory("AuthUserFactory", function($window) {
 		city: '',
 		zip: ''
 	};
-	let currentUser = '';
+	let currentUser = UserStorageFactory.getUserInfo('users').uid;
 	let isLoggedIn = false;
 
 
