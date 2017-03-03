@@ -40,7 +40,7 @@ app.controller('ExploreCtrl', function($scope, $window, GoogleFactory, UserStora
                 newBoardObject.description = myBoards[keyArray[i]].description;
                 boardArray.push(newBoardObject);
                 $scope.boards = boardArray;
-            };
+            }
         }
         ObjectToAdd = {};
         ObjectToAdd = result;

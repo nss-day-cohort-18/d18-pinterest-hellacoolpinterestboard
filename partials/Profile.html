@@ -2,9 +2,12 @@
 
 <div class="row">
   <div class="col s4" ng-repeat="board in iterableBoards" ng-click="boardClicked(board)">
+    <div class="row">
+      <h3>{{board.title}}</h3>
+    </div>
     <div class="row" id="{{boardIDs[$index]}}">
       <div class="card col s4" ng-repeat="pin in board.pins">        
-        <img src="pin.image">        
+        <img class="profile-board-img" src="{{pin.image}}">        
       </div>      
     </div>
     <div class="row">
@@ -14,7 +17,7 @@
 </div>
 
 
-<div class="row">
+<!-- <div class="row">
   <div class="col s4" ng-repeat="pin in pinsToDisplay">
     <div class="row">
       <img src="{{pin.image}}">
@@ -26,5 +29,27 @@
       <a class="waves-effect waves-light btn" ng-click="deletePin(pin.uglyId)">Delete Me!!</a>
     </div>
   </div>
+</div> -->
+
+<div class="row" ng-repeat="row in pinsToDisplay">
+  <div class="col s3" ng-repeat="pin in row">
+    <div class="card">
+      <div class="card-image">
+        <div class="row">
+          <div class="card col s10 offset-s1">        
+            <img class="" src="{{pin.image}}">        
+          </div>  
+        </div>
+        <span class="card-title">{{pin.title}}</span>
+      </div>
+      <div class="card-content">
+        <p>{{pin.snippet}}</p>
+      </div>
+      <div class="card-action">
+        <a href="{{pin.link}}">{{pin.link}}</a>
+      </div>
+    </div>
+  </div>  
 </div>
+<ul ng-repeat="item in items | modulo:3">
 
