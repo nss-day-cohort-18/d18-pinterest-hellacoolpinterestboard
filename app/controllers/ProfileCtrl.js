@@ -18,13 +18,20 @@ app.controller("ProfileCtrl", function($scope, $window, AuthUserFactory, UserSto
 			} else {
 				debugger;
 				let myPin = pin[Object.keys(pin)[0]];
-				myPin.uglyId = Object.keys(pin)[0];
-				let myKey = myPin.boardid;
-				let myUID = myPin.uid;
+				console.log(myPin === undefined);
+				if (myPin) {
+					myPin.uglyId = Object.keys(pin)[0];
+					let myKey = myPin.boardid;
+					let myUID = myPin.uid;
 
-				console.log(myKey, myUID);
-				s.boards[s.boardIDs.indexOf(myKey)][myKey].pins = [];
-				s.boards[s.boardIDs.indexOf(myKey)][myKey].pins.push(myPin);
+					console.log(myKey, myUID); 
+					if (s.boards[s.boardIDs.indexOf(myKey)][myKey].pins) {
+						s.boards[s.boardIDs.indexOf(myKey)][myKey].pins.push(myPin);
+					} else {
+						s.boards[s.boardIDs.indexOf(myKey)][myKey].pins = [];
+						s.boards[s.boardIDs.indexOf(myKey)][myKey].pins.push(myPin);					
+					}					
+				}
 			}
 		});		
 	}
@@ -32,6 +39,24 @@ app.controller("ProfileCtrl", function($scope, $window, AuthUserFactory, UserSto
 	s.boardClicked = (boardInfo) => {
 		console.log(boardInfo);
 		s.pinsToDisplay = boardInfo.pins;
+	};
+
+	s.deleteBoard = (boardUglyId) => {
+		console.log("About to delete a board and all of it's pins");
+		s.boardUglyId = boardUglyId;
+		HandleFBDataFactory.deleteItem(s.boardUglyId, 'board').then(
+			(boardObjStatusFirebase) => HandleFBDataFactory.getItemList('board')
+		).then(
+			(boardObjFromFirebase) => UserStorageFactory.setUserinfo(boardObjFromFirebase, 'board')
+		).then(
+			() => HandleFBDataFactory.deleteItem(s.boardUglyId, 'pins', true)
+		).then(
+			(pinsObjStatusFirebase) => HandleFBDataFactory.getItemList('pins')
+		).then(
+			(pinsObjFromFirebase) => UserStorageFactory.setUserinfo(pinsObjFromFirebase, 'pins')
+		).then(
+			() => $window.location.reload()
+		);
 	};
 
 	s.deletePin = (pinUglyId) => {
