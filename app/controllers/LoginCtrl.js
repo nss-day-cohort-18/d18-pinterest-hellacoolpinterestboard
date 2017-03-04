@@ -14,7 +14,6 @@ app.controller("LoginCtrl", function($scope, $location, $window, AuthUserFactory
 	//Also changes the window to /list view
 	s.login = () => {
   	console.log("you clicked login: ", s.account);
-
   	AuthUserFactory.loginUser(s.account).then( 
   		(userData) => {
 				console.log("LoginCtrl.js login user: ", userData.uid);

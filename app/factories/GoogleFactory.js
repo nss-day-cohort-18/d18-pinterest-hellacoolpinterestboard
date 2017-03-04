@@ -36,18 +36,11 @@ app.factory("GoogleFactory", function($window, $q, $http, googleCredentials) {
 
     let storedPin;
     
-    let storePinForBoard = (pin) => {
-        storedPin = pin;
-        console.log("storedPin", storedPin);
-    };
+    let storePinForBoard = (pin) => storedPin = pin;
 
-    let getStoredPin = () => {
-        return storedPin;
-    };
+    let getStoredPin = () => storedPin;
 
-    let getGoogleDataArray = () => {
-        return googleDataArray;
-    };
+    let getGoogleDataArray = () => googleDataArray;
 
     return {GoogleAPI, getGoogleDataArray, storePinForBoard, getStoredPin};
 });

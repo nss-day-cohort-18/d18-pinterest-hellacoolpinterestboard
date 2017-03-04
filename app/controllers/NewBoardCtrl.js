@@ -9,13 +9,17 @@ app.controller('NewBoardCtrl', function($scope, $window, GoogleFactory, UserStor
 	to Firebase. The object contains 1.) the name of the board, 2.) its description, and 3.) the 
 	uid of the user who submitted it.*/
 
-	$scope.pinToPost = '';
+	// $scope.pinToPost = '';
 
 	$scope.addBoard = () => {
-		let newBoardObject = {};
-		newBoardObject.title = $scope.boardName;
-		newBoardObject.description = $scope.boardDescription;
-		newBoardObject.uid = AuthUserFactory.getUser();
+		let title = $scope.boardName,
+				description = $scope.boardDescription,
+				uid = UserStorageFactory.getUserInfo('users').uid;
+		// newBoardObject.description = $scope.boardDescription;
+		// newBoardObject.uid = UserStorageFactory.getUserInfo('users').uid;
+		let newBoardObject = {
+			title, description, uid
+		};
 		console.log("newBoardObject", newBoardObject);
 
 		HandleFBDataFactory.postNewItem(newBoardObject, "board").then(
@@ -24,17 +28,14 @@ app.controller('NewBoardCtrl', function($scope, $window, GoogleFactory, UserStor
 				let name = ObjFromFirebase.data.name;
 				$scope.pinToPost = GoogleFactory.getStoredPin();
 				$scope.pinToPost.boardid = name;
+				console.log("pin to post: ", $scope.pinToPost);
 				HandleFBDataFactory.getItemList('board').then(
-					(boardObjFromFirebase) => UserStorageFactory.setUserinfo(boardObjFromFirebase, 'board')
-				).then(
 					() => HandleFBDataFactory.postNewItem($scope.pinToPost, "pins")
 				).then(
 					(pinsObjStatusFirebase) => HandleFBDataFactory.getItemList('pins')
 				).then(
-					(pinsObjFromFirebase) => UserStorageFactory.setUserinfo(pinsObjFromFirebase, 'pins')
-				).then(
 					() => {
-						$window.location.reload();
+						// $window.location.reload();
 						$window.location.href = '#!/explore';
 					}
 				);

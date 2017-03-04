@@ -24,9 +24,9 @@ app.controller("NavCtrl", function($scope, $window, AuthUserFactory, GoogleFacto
   $scope.searchGoogle = function(){
 		let searchText = $scope.searchText;
 		GoogleFactory.GoogleAPI(searchText).
-		then(()=>{
-			$window.location.href = "#!/explore";
-		});
+			then(
+				() => $window.location.href = "#!/explore"
+			);
 	};
 
 });
