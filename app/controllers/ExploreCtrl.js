@@ -31,10 +31,6 @@ app.controller('ExploreCtrl', function($scope, $window, GoogleFactory, UserStora
         } else {
             $scope.boardExists = true;
             console .log(typeof myBoards);
-            debugger;
-            // let boards = UserStorageFactory.getUserInfo("board");
-            // console.log("Boards: ", boards);
-            // let myBoards = boards[boards.length - 1];
             console.log("These are my boards from UserStorage: ", myBoards);
             let keyArray = myBoards.map((board) => Object.keys(board)[0]);
             let boardArray = [];
@@ -57,7 +53,6 @@ app.controller('ExploreCtrl', function($scope, $window, GoogleFactory, UserStora
     and sends it to Firebase.*/
     $scope.pinToBoard = (board) => {
         $scope.boardExists = false;
-        debugger;
         console.log("board", board);
         console.log("board.key", board.key);
         ObjectToAdd.boardid = board.key;

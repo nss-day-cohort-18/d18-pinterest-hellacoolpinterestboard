@@ -29,7 +29,8 @@ app.controller("ProfileCtrl", function($scope, $window, AuthUserFactory, UserSto
 	// makeBoardsPinsIterable(pinsArr, 'pins');
 
 	let updateMyShit = () => {
-		if (s.pins[0] === null) {
+		if (s.pins === undefined || typeof s.pins === 'string') {
+			s.iterableBoards = [];
 			console.log("You ain't got no pins ta show honey bunny");
 		} else {
 
@@ -39,7 +40,6 @@ app.controller("ProfileCtrl", function($scope, $window, AuthUserFactory, UserSto
 			console.log("Here are your board IDs: ", s.boardIDs);
 
 			s.pins.forEach((pin) => {
-				debugger;
 				let myPin = pin[Object.keys(pin)[0]],
 						myKey = myPin.boardid,
 						myUID = myPin.uid;
@@ -83,48 +83,41 @@ app.controller("ProfileCtrl", function($scope, $window, AuthUserFactory, UserSto
 		}
 	};
 
-	let deleteAllPins = (boardID) => {
-		return new Promise((resolve, reject) => {
-			let counter = 1;
-
-			for (var board = 0; board < s.boards.length; board++) {
-				if (Object.keys(s.boards[board])[0] === boardID) {
-					s.boards[board][boardID].pins.forEach((pin) => {
-						counter = board + 1;
-						console.log(pin);
-						HandleFBDataFactory.deleteItem(pin.uglyId, 'pins').then(
-							() => {
-								if (counter === s.boards[board][boardID].pins.length) {
-									counter = 1;
-									debugger;
-									resolve();	
-								} else {
-									console.log("Deleted " + counter);
-								}
-							}
-						);
-					});
-				}
-			}
-		});
-	};
 
 	s.deleteBoard = (boardUglyId) => {
 		console.log("About to delete a board and all of it's pins");
 		s.boardUglyId = boardUglyId;
-		deleteAllPins(s.boardUglyId).then(
+		s.boardToDelete = s.boards.map((board) => board[boardUglyId]);
+		let victoryMessage = "You have deleted the pin!";
+
+
+		let pinsUglyIds = [];
+		s.boardToDelete.map((board) => {
+			if (board) {
+				board.pins.map((pin) => pinsUglyIds.push(pin.uglyId));
+			}
+		});
+
+		let deletePin = (uglyId) => HandleFBDataFactory.deleteItem(uglyId, 'pins');
+		let deletePins = pinsUglyIds.map(deletePin);
+
+		console.log("Here is your pinsToDelete Arr arr: ", pinsUglyIds);
+
+		Promise.all(deletePins).then(
 				() => HandleFBDataFactory.getItemList('pins')
 			).then(
-				() => HandleFBDataFactory.deleteItem(s.boardUglyId, 'board')
-			).then(
-				(boardObjStatusFirebase) => HandleFBDataFactory.getItemList('board')
-			).then(
-				() => {
-					s.boards = UserStorageFactory.getUserInfo('board');
-					s.pins = UserStorageFactory.getUserInfo('pins');
-					updateMyShit();
+				(pinsArr) => {
+					s.pins = pinsArr;
+					HandleFBDataFactory.deleteItem(s.boardUglyId, 'board').then(
+						(boardObjStatusFirebase) => HandleFBDataFactory.getItemList('board')
+					).then(
+						(boardArr) => {
+							s.boards = boardArr;
+							updateMyShit();					
+						}
+					);
 				}
-			);		
+			);			
 	};
 
 	s.deletePin = (pinUglyId) => {

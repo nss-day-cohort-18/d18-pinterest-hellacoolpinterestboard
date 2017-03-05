@@ -58,7 +58,12 @@ app.factory("HandleFBDataFactory", ($q, $http, $window, FBCreds, AuthUserFactory
 							}		
 						} else {
 							console.log("You have no data in firebase!");
-							resolve();
+							UserStorageFactory.setUserinfo('', location).then(
+								() => {
+									console.log(location + " set in UserStorage to ''");
+									resolve();									
+								}
+							);
 						}
 				}).catch((error) => reject(error));
 		});
