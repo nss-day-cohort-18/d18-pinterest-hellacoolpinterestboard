@@ -20,16 +20,6 @@ app.controller("NavCtrl", function($scope, $window, $rootScope, $location, $rout
 	};
 
 
-	/*This function fires when the search button on the explore partial is clicked. It 
-	grabs the text from the text input and sends it to the GoogleAPI function, which 
-	appends it as a query. It then sets the returned array of objects as $scope.data, 
-	which binds to the Explore partial via ng-repeat.*/
-  $scope.searchGoogle = function(){
-		let searchText = $scope.searchText;
-		GoogleFactory.GoogleAPI(searchText).
-			then(
-				() => $window.location.href = "#!/explore"
-			);
-	};
+	
 
 });
