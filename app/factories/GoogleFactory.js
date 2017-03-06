@@ -6,14 +6,16 @@ app.factory("GoogleFactory", function($window, $q, $http, googleCredentials) {
     first ten Google search results and the attendant metadata for any query sent as an 
     argument from ExploreCtrl. It then parses the data into an array of new objects. Each 
     object in that array contains 1.) the image, 2.) the link, 3.) the snippet, and 
-    4.) the title affiliated with the search result. ***** Note that the URL has the query 
-    "pinterest" hard coded as the first search term, so each query entered will return
-    results affiliated with Pinterest. ***** */
+    4.) the title affiliated with the search result. ***** Note that the URL has the site 
+    pinterest.com hard-coded into the URL, so each query entered will return results 
+    affiliated with Pinterest. ***** */
+    
     let googleDataArray = [];
 
-    let GoogleAPI = (searchText) => {
+    let GoogleAPI = (searchText, searchStart) => {
         return $q((resolve, reject)=>{
-            $http.get(`${googleCredentials.URL}`+searchText)
+            console.log("searchStart", searchStart);
+            $http.get(`${googleCredentials.URL}`+searchText+`&start=${searchStart}`)
             .then((googleObject)=>{
             console.log("googleObject", googleObject);
                 // googleDataArray = [];
