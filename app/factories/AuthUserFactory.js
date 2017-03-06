@@ -2,30 +2,14 @@
 
 app.factory("AuthUserFactory", function($window, UserStorageFactory) {
 
-	//Information received at registration
-	let loggedInUserInfo = {
-		firstName: '',
-		lastName: '',
-		mailingAddress: '',
-		emailAddress: '',
-		userName: '', 
-		birthday: '',
-		gender: '',
-		interests: '',
-		picture: '',
-		streetAddress: '', 
-		city: '',
-		zip: ''
-	};
-let currentUser = '';
-let isLoggedIn = false;
-
+	let isLoggedIn = false;
 
 	//Args: {email: '', password: ''}
 	//Return: User obj from Firebase
 	let createUser = (userObj) => firebase.auth().createUserWithEmailAndPassword(userObj.email, userObj.password)
 			.catch( (error) => console.log("error: ", error.code, error.message));
 	
+
 	//Args: {email: '', password: ''}
 	//Return: UserObj from Firebase
 	let loginUser = (userObj) => firebase.auth().signInWithEmailAndPassword(userObj.email, userObj.password)
@@ -44,17 +28,6 @@ let isLoggedIn = false;
 		// localStorage.removeItem('notes');
 		// localStorage.removeItem('profile');
 		// return firebase.auth().signOut();
-	};
-
-
-	//Return: true if logged in, false if logged out
-	let checkIfLoggedIn = () => {
-		console.log("Everything is commented out. Check to make sure this will work first! checkIfLoggedIn() AuthUserFactory.js");
-			// if (isLoggedIn) {
-			// 	return isLoggedIn;
-			// } else {
-			// 	return isLoggedIn;
-			// }
 	};
 
 
@@ -85,23 +58,6 @@ let isLoggedIn = false;
 	};
 
 
-	//Return: User uid
-	let getUser = () => currentUser;
-	//Sets uid of logged in user
-	//Args: uid  
-	let setUser = (userID) => currentUser = userID;
-
-
-	//Return: User Profile Obj/ See line 8
-	let getUserInfo = () => loggedInUserInfo;
-	//Sets loggedInUserInfo, see line 8
-	//Args: userObj = {userInfo: ''}
-	let setUserInfo = (userObj) => {
-		loggedInUserInfo = userObj;
-		console.log("Here is your loggedInUserInfo from AuthUserFactory.js setUserInfo()", loggedInUserInfo);
-	};
-
-
 	//Sets google provider
 	let googleProvider = new firebase.auth.GoogleAuthProvider();
 	//Sign in with given provider using Firebase
@@ -112,13 +68,8 @@ let isLoggedIn = false;
 	return {createUser,
 					loginUser, 
 					logoutUser, 
-					checkIfLoggedIn, 
 					changeLogin, 
 					isAuthenticated, 
-					getUser, 
-					setUser,
-					getUserInfo, 
-					setUserInfo,
 					authWithProvider
 				};
 });

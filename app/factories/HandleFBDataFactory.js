@@ -9,7 +9,7 @@ app.factory("HandleFBDataFactory", ($q, $http, $window, FBCreds, AuthUserFactory
 	//Return: locationInfo Obj
 	let getItemList = (location) => {
 
-		let user = AuthUserFactory.getUser();
+		let user = UserStorageFactory.getUserInfo('users').uid;
 		console.log("I am now within HandleFBDataFactory.js getItemList() to get: ", location);
 
 		return $q((resolve, reject) => {
