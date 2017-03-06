@@ -22,6 +22,13 @@
 </div>
 
 
+<form ng-submit="searchGoogle($event)">
+ <div class="input-field grey lighten-5">
+   <input id="search" type="search" placeholder="search pins" required ng-model="searchText">
+   <label class="label-icon" for="search" width=25px><i class="material-icons">search</i></label>
+   <!-- <i class="material-icons">close</i> -->
+ </div>
+</form>
 <div class="row" ng-show="!boardExists">
   <div class="col s3" ng-repeat="result in data">
     <div class="card">
