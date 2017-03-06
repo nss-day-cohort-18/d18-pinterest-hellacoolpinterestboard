@@ -6,18 +6,6 @@ app.controller("ProfileCtrl", function($scope, $window, AuthUserFactory, UserSto
 	s.info = [];
 	s.currentUser = UserStorageFactory.getUserInfo('users').uid;
 
-	// let makeBoardsPinsIterable = (boardPinsArr, location) => {
-	// 	if (boardPinsArr === null || boardPinsArr === undefined) {
-	// 		console.log("You ain't go no boards to show!");
-	// 	} else {
-	// 		boardPinsArr.forEach((boardPinObj) => {
-	// 			let myObj = {};
-	// 			myObj[boardPinObj] = boardPinsArr[boardPinObj];
-	// 			s[location].push(myObj);
-	// 		});	
-	// 		console.log("Here are your boards: ", s[location]);
-	// 	}
-	// };
 
 	s.boards = UserStorageFactory.getUserInfo('board');
 	console.log("Here are your boards from ProfileCtrl.js: ", s.boards);
@@ -31,6 +19,7 @@ app.controller("ProfileCtrl", function($scope, $window, AuthUserFactory, UserSto
 	let updateMyShit = () => {
 		if (s.pins === undefined || typeof s.pins === 'string') {
 			s.iterableBoards = [];
+			s.pinsToDisplay = [];
 			console.log("You ain't got no pins ta show honey bunny");
 		} else {
 
@@ -42,21 +31,20 @@ app.controller("ProfileCtrl", function($scope, $window, AuthUserFactory, UserSto
 			s.pins.forEach((pin) => {
 				let myPin = pin[Object.keys(pin)[0]],
 						myKey = myPin.boardid,
-						myUID = myPin.uid;
+						myUID = myPin.uid,
+						myCurrentBoard = s.boards[s.boardIDs.indexOf(myKey)][myKey];
 
 				myPin.uglyId = Object.keys(pin)[0];
 
 				console.log(myKey, myUID); 
-
-				console.log(s.boards[s.boardIDs.indexOf(myKey)][myKey]);
-				console.log(s.boards[s.boardIDs.indexOf(myKey)][myKey].hasOwnProperty('pins'));
+				console.log(myCurrentBoard);
+				console.log(myCurrentBoard.hasOwnProperty('pins'));
 				
-				if (s.boards[s.boardIDs.indexOf(myKey)][myKey].hasOwnProperty('pins')) {
-					s.boards[s.boardIDs.indexOf(myKey)][myKey].pins.push(myPin);
+				if (myCurrentBoard.hasOwnProperty('pins')) {
+					myCurrentBoard.pins.push(myPin);
 				} else {
-					s.boards[s.boardIDs.indexOf(myKey)][myKey].pins = [];
-					s.boards[s.boardIDs.indexOf(myKey)][myKey].pins.push(myPin);	
-
+					myCurrentBoard.pins = [];
+					myCurrentBoard.pins.push(myPin);
 				}					
 			});
 		}
@@ -88,10 +76,9 @@ app.controller("ProfileCtrl", function($scope, $window, AuthUserFactory, UserSto
 		console.log("About to delete a board and all of it's pins");
 		s.boardUglyId = boardUglyId;
 		s.boardToDelete = s.boards.map((board) => board[boardUglyId]);
-		let victoryMessage = "You have deleted the pin!";
-
 
 		let pinsUglyIds = [];
+
 		s.boardToDelete.map((board) => {
 			if (board) {
 				board.pins.map((pin) => pinsUglyIds.push(pin.uglyId));
@@ -103,16 +90,21 @@ app.controller("ProfileCtrl", function($scope, $window, AuthUserFactory, UserSto
 
 		console.log("Here is your pinsToDelete Arr arr: ", pinsUglyIds);
 
+		//Delete all pins associated with the board, then update local
 		Promise.all(deletePins).then(
 				() => HandleFBDataFactory.getItemList('pins')
 			).then(
 				(pinsArr) => {
 					s.pins = pinsArr;
+
+					//delete selected board from firebase and update local
 					HandleFBDataFactory.deleteItem(s.boardUglyId, 'board').then(
 						(boardObjStatusFirebase) => HandleFBDataFactory.getItemList('board')
 					).then(
 						(boardArr) => {
 							s.boards = boardArr;
+
+							//update all $scope variables
 							updateMyShit();					
 						}
 					);

@@ -16,11 +16,12 @@ app.controller("LoginCtrl", function($scope, $location, $window, AuthUserFactory
   	console.log("you clicked login: ", s.account);
   	AuthUserFactory.loginUser(s.account).then( 
   		(userData) => {
-				console.log("LoginCtrl.js login user: ", userData.uid);
-				AuthUserFactory.setUser(userData.uid);
-				HandleFBDataFactory.getUserInfo().then(
-					() => $window.location.href = '#!/explore'
-				);
+  			console.log("Here is your user data: ", userData);
+  			UserStorageFactory.setUserinfo(userData, 'users').then(
+						() => HandleFBDataFactory.getUserInfo()
+  				).then(
+							() => $window.location.href = '#!/explore'
+						);
 			},
 			(error) => console.log("Error creating user: ", error)
     );
@@ -35,10 +36,14 @@ app.controller("LoginCtrl", function($scope, $location, $window, AuthUserFactory
 			(userInfo) => {
 	    	console.log("logged in user:", userInfo);
 	    	AuthUserFactory.setUser(userInfo.user.uid);
-	    	HandleFBDataFactory.getUserInfo().then(
-	    		() => $window.location.href = '#!/explore'
-	    	);
-		}).catch(
+	    	UserStorageFactory.setUserinfo(userInfo.user, 'users').then(
+		    	//Get all info associated with this user. Pins/boards/userinfo
+		    	() => HandleFBDataFactory.getUserInfo()
+			    	).then(
+		    			() => $window.location.href = '#!/explore'
+		    		);	    	
+		  }
+		).catch(
 			(error) => {
 	    	console.log("error with google login", error);
 	    	AuthUserFactory.changeLogin(false);
@@ -49,6 +54,12 @@ app.controller("LoginCtrl", function($scope, $location, $window, AuthUserFactory
 	  		// ...
 			});
 	};
+
+
+	let myObj = {};
+	console.log(angular.isUndefined(myObj));
+
+
 });
 
 

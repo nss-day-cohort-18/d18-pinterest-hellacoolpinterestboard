@@ -9,7 +9,6 @@ app.controller('NewBoardCtrl', function($scope, $window, GoogleFactory, UserStor
 	to Firebase. The object contains 1.) the name of the board, 2.) its description, and 3.) the 
 	uid of the user who submitted it.*/
 
-	// $scope.pinToPost = '';
 
 	$scope.addBoard = () => {
 		let title = $scope.boardName,
@@ -30,16 +29,24 @@ app.controller('NewBoardCtrl', function($scope, $window, GoogleFactory, UserStor
 				$scope.pinToPost.boardid = name;
 				console.log("pin to post: ", $scope.pinToPost);
 				HandleFBDataFactory.getItemList('board').then(
-					() => HandleFBDataFactory.postNewItem($scope.pinToPost, "pins")
-				).then(
-					(pinsObjStatusFirebase) => HandleFBDataFactory.getItemList('pins')
-				).then(
-					() => {
-						// $window.location.reload();
-						$window.location.href = '#!/explore';
+						() => HandleFBDataFactory.postNewItem($scope.pinToPost, "pins")
+					).then(
+							(pinsObjStatusFirebase) => HandleFBDataFactory.getItemList('pins')
+						).then(
+								() => {
+								// $window.location.reload();
+								$window.location.href = '#!/explore';
 					}
 				);
 			}
 		);
 	};
 });
+
+
+
+
+
+
+
+
