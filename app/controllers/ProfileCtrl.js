@@ -1,6 +1,6 @@
 "use strict";
 
-app.controller("ProfileCtrl", function($scope, $window, AuthUserFactory, UserStorageFactory, HandleFBDataFactory) {
+app.controller("ProfileCtrl", function($scope, $window, UserStorageFactory, HandleFBDataFactory) {
 	// console.log("UserDetailsCtrl");
 	let s = $scope;
 	s.info = [];

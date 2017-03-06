@@ -35,7 +35,6 @@ app.controller("LoginCtrl", function($scope, $location, $window, AuthUserFactory
 		.then(
 			(userInfo) => {
 	    	console.log("logged in user:", userInfo);
-	    	AuthUserFactory.setUser(userInfo.user.uid);
 	    	UserStorageFactory.setUserinfo(userInfo.user, 'users').then(
 		    	//Get all info associated with this user. Pins/boards/userinfo
 		    	() => HandleFBDataFactory.getUserInfo()
