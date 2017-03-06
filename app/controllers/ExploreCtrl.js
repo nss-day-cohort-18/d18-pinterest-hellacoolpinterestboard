@@ -4,7 +4,22 @@ app.controller('ExploreCtrl', function($scope, $window, GoogleFactory, UserStora
 
     $scope.data = GoogleFactory.getGoogleDataArray();
 
-    
+    /*This function fires when the search button on the explore partial is clicked. It 
+    grabs the text from the text input and sends it to the GoogleAPI function, which 
+    appends it as a query. It then sets the returned array of objects as $scope.data, 
+    which binds to the Explore partial via ng-repeat. Each subsequent search adds 10 
+    addition Google results. Thus, searchStart+=10. */
+    let searchStart = 1;
+    $scope.searchGoogle = function(){
+        let searchText = $scope.searchText;
+        GoogleFactory.GoogleAPI(searchText, searchStart).
+            then(
+                () => { searchStart += 10;
+                        $window.location.href = "#!/explore";
+                    }
+            );
+    };
+
     /* This function checks Firebase to determine whether the current user has a board. It
     returns the user's boards.*/
     let checkboards = () => UserStorageFactory.getUserInfo("board");
