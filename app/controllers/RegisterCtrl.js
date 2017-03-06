@@ -24,7 +24,7 @@ app.controller("RegisterCtrl", function($scope, $window, AuthUserFactory, Handle
 
 		let rowToPush = [];
 		for (var category = 0; category < s.interests.length + 1; category++) {
-			if (!(s.interests[category] === undefined)) {
+			if (s.interests[category]) {
 				s.userInfo.interests[s.interests[category]] = false;
 				if (category === 0) {
 					rowToPush.push(s.interests[category]);
@@ -42,32 +42,9 @@ app.controller("RegisterCtrl", function($scope, $window, AuthUserFactory, Handle
 			}
 		}
 
-		s.currentLocation = window.location;
-		console.log(s.currentLocation.hash);
-
-		s.days = [];
-		s.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-		s.years = [];
-		// months.forEach((month) => $(`<li ng-click="updateBirthInfo(${month}, birthMonth)"><a>${month}</a></li>`).appendTo('.birth-month') );
-		for (var year = 2017; year > 1950; year--) {
-			s.years.push(year);
-		}
-		for (let day = 1; day < 32; day++) {
-			if (day.toString().length === 1) {
-				s.days.push('0'+ day);
-			} else {
-				s.days.push(day);
-			}
-		}
-
-		//Args(2): birthValue = string (day, month, year)
-		//				 location= string for userInfo (birthDay, birthMonth, birthYear)
-		s.setBirthInfo = (birthValue, location) => s.userInfo[location] = birthValue;
-
 		//Takes all information saved within s.userInfo, checks to make sure all required fields are
 		//filled out and sends the information to firebase to be updated
 		s.clickRegister = () => {
-			console.log("You clicked registerNewUser()");
 			//Make sure firstName, lastName, userName, email, password, and reEnterPassword are filled out
 			if (s.userInfo.firstName.length === 0 || s.userInfo.lastName.length === 0 || s.userInfo.userName.length === 0 || s.userInfo.email.length === 0 || s.userInfo.password.length < 6 || s.userInfo.zip.length === 0) {
 				console.log("Here is your user info: ", s.userInfo);
@@ -77,6 +54,7 @@ app.controller("RegisterCtrl", function($scope, $window, AuthUserFactory, Handle
 				console.log("Here is your user info: ", s.userInfo);
 			}
 		};
+
 
 		s.clickExplore = () => {
 			if (!(s.userInfo.hasOwnProperty('interests'))) {
@@ -96,10 +74,7 @@ app.controller("RegisterCtrl", function($scope, $window, AuthUserFactory, Handle
 							s.userInfo.password = "";
 							HandleFBDataFactory.postNewItem(s.userInfo, 'users').then(
 								(profileObjFromFirebase) => {
-									console.log("Here is your profile info from firebase: ", profileObjFromFirebase);
-
-									profileObjFromFirebase.data.name =
-									// send User Info from firebase to be stored within localstorage
+									console.log("Here is your profile info from firebase: ", profileObjFromFirebase);									// send User Info from firebase to be stored within localstorage
 									UserStorageFactory.setUserinfo(s.userInfo, 'users');
 									s.userInfo = {};
 									$window.location.href = "#!/explore";
@@ -111,3 +86,14 @@ app.controller("RegisterCtrl", function($scope, $window, AuthUserFactory, Handle
 			}
 		};
 });
+
+
+
+
+
+
+
+
+
+
+

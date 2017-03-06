@@ -7,10 +7,8 @@ app.controller('ExploreCtrl', function($scope, $window, GoogleFactory, UserStora
     
     /* This function checks Firebase to determine whether the current user has a board. It
     returns the user's boards.*/
-    let checkboards = () => {
-        let boards = UserStorageFactory.getUserInfo("board");
-        return boards;
-    };
+    let checkboards = () => UserStorageFactory.getUserInfo("board");
+    
 
     /* This object is declared outside the functions because we need it in two functions 
     below */
@@ -22,27 +20,30 @@ app.controller('ExploreCtrl', function($scope, $window, GoogleFactory, UserStora
     This function also saves the data from the selected pin as ObjectToAdd in order to add
     it to a board below.*/
     $scope.addPin = (result) => {
+        result.uid = UserStorageFactory.getUserInfo('users').uid;
+        console.log("pin to store: ", result);
+        GoogleFactory.storePinForBoard(result);
         let myBoards = checkboards();
-        if (myBoards === null) {
+        if (typeof myBoards === 'string') {
+            console.log("sending to newBoard page");
             $window.location.href = "#!/newBoard";
             return;
         } else {
             $scope.boardExists = true;
-            let boards = UserStorageFactory.getUserInfo("board");
-            let myBoards = boards[boards.length - 1];
+            console .log(typeof myBoards);
             console.log("These are my boards from UserStorage: ", myBoards);
-            let keyArray = Object.keys(myBoards);
+            let keyArray = myBoards.map((board) => Object.keys(board)[0]);
             let boardArray = [];
             for (var i = 0; i < keyArray.length; i++) {
                 let newBoardObject = {};
                 newBoardObject.key = keyArray[i];
-                newBoardObject.title = myBoards[keyArray[i]].title;
-                newBoardObject.description = myBoards[keyArray[i]].description;
+                newBoardObject.title = myBoards[i][keyArray[i]].title;
+                newBoardObject.description = myBoards[i][keyArray[i]].description;
                 boardArray.push(newBoardObject);
-                $scope.boards = boardArray;
             }
+            console.log(boardArray);
+            $scope.boards = boardArray;
         }
-        ObjectToAdd = {};
         ObjectToAdd = result;
         console.log("ObjectToAdd", ObjectToAdd);
     };
@@ -55,17 +56,19 @@ app.controller('ExploreCtrl', function($scope, $window, GoogleFactory, UserStora
         console.log("board", board);
         console.log("board.key", board.key);
         ObjectToAdd.boardid = board.key;
-        ObjectToAdd.uid = AuthUserFactory.getUser();
-        console.log("user", AuthUserFactory.getUser());
+        ObjectToAdd.uid = UserStorageFactory.getUserInfo('users').uid;
+        console.log("user", ObjectToAdd.uid);
         console.log("ObjectToAdd at Send", ObjectToAdd);
-        HandleFBDataFactory.postNewItem(ObjectToAdd, "pins");
+        HandleFBDataFactory.postNewItem(ObjectToAdd, "pins").then(
+            (pinsObjStatusFirebase) => HandleFBDataFactory.getItemList('pins')
+        );
 
     };
 
     $scope.createNewBoard = () => {
         $scope.boardExists = false;
-        ObjectToAdd.uid = AuthUserFactory.getUser();
-        console.log("user", AuthUserFactory.getUser());
+        ObjectToAdd.uid = UserStorageFactory.getUserInfo('users').uid;
+        console.log("user", ObjectToAdd.uid);
         console.log("ObjectToAdd at Send", ObjectToAdd);
         GoogleFactory.storePinForBoard(ObjectToAdd);
     };
