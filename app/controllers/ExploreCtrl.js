@@ -65,6 +65,10 @@ app.controller('ExploreCtrl', function($scope, $window, GoogleFactory, UserStora
 
     };
 
+    /* This function fires when a user clicks on the button attached to the "Create New 
+    Board" card. It first amends the selected object that will be pushed to Firebase by 
+    adding the user id. It then passes that object to the Google Factory to store to be 
+    recalled when pinned to the newly created board.*/
     $scope.createNewBoard = () => {
         $scope.boardExists = false;
         ObjectToAdd.uid = UserStorageFactory.getUserInfo('users').uid;

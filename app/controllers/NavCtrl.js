@@ -20,12 +20,16 @@ app.controller("NavCtrl", function($scope, $window, AuthUserFactory, GoogleFacto
 	/*This function fires when the search button on the explore partial is clicked. It 
 	grabs the text from the text input and sends it to the GoogleAPI function, which 
 	appends it as a query. It then sets the returned array of objects as $scope.data, 
-	which binds to the Explore partial via ng-repeat.*/
-  $scope.searchGoogle = function(){
+	which binds to the Explore partial via ng-repeat. Each subsequent search adds 10 
+	addition Google results. Thus, searchStart+=10. */
+	let searchStart = 1;
+  	$scope.searchGoogle = function(){
 		let searchText = $scope.searchText;
-		GoogleFactory.GoogleAPI(searchText).
+		GoogleFactory.GoogleAPI(searchText, searchStart).
 			then(
-				() => $window.location.href = "#!/explore"
+				() => { searchStart += 10;
+						$window.location.href = "#!/explore";
+					}
 			);
 	};
 
