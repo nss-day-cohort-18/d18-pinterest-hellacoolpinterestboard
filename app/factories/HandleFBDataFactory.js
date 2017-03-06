@@ -15,27 +15,55 @@ app.factory("HandleFBDataFactory", ($q, $http, $window, FBCreds, AuthUserFactory
 		return $q((resolve, reject) => {
 			$http.get(`${FBCreds.databaseURL}/${location}.json?orderBy="uid"&equalTo="${user}"`).then(
 					(itemObject) => {
-						console.log("This is your itemCollection from within HandleFBDataFactory.js getItemList(): ", itemObject.data);
-						if (itemObject.data === null) {
-							console.log("You have no data in firebase!");
-							resolve();
-						} else {
+						console.log("This is your itemCollection from within HandleFBDataFactory.js getItemList(): ", Object.values(itemObject.data));
+						if ( Object.values(itemObject.data).length > 0 ) {
 							AuthUserFactory.changeLogin(true);
-
 							switch(location) {
-								case 'pins': 
-									let pinsInfo = itemObject.data;
-									resolve(pinsInfo);
+								case 'pins':
+									if (itemObject === undefined) {
+			    					console.log("Nothing to show: ", itemObject);
+			    					resolve(itemObject);
+			    				} else {
+				    				let pinsArr = [];
+				    				for (var pin in itemObject.data) {
+				    					let myPin = {};
+				    					myPin[pin] = itemObject.data[pin];
+				    					console.log("Here is your pin: ",  myPin);
+				    					pinsArr.push(myPin);
+				    				}
+				    				console.log("pinsArr: ", pinsArr);
+					    			UserStorageFactory.setUserinfo(pinsArr, 'pins');
+										resolve(pinsArr);
+			    				}
 									break;
 								case 'board': 
-									let boardInfo = itemObject.data;
-									resolve(boardInfo);
+									if (itemObject === undefined) {
+			    					console.log("Nothing to show: ", itemObject);
+			    				} else {
+				  					let boardArr = [];
+				  					for (var board in itemObject.data) {
+				  						let myBoard = {};
+				  						myBoard[board] = itemObject.data[board];
+				    					boardArr.push(myBoard);
+				    				}
+				  					console.log("Here is your boardArr: ", boardArr);
+					    			UserStorageFactory.setUserinfo(boardArr, 'board');    				
+										resolve(boardArr);
+			    				}
 									break;
 								case 'users': 
 									let usersInfo = itemObject.data[Object.keys(itemObject.data)[0]];
 									resolve(usersInfo);
 									break;
-							}
+							}		
+						} else {
+							console.log("You have no data in firebase!");
+							UserStorageFactory.setUserinfo('', location).then(
+								() => {
+									console.log(location + " set in UserStorage to ''");
+									resolve();									
+								}
+							);
 						}
 				}).catch((error) => reject(error));
 		});
@@ -49,11 +77,7 @@ app.factory("HandleFBDataFactory", ($q, $http, $window, FBCreds, AuthUserFactory
     		).then(
     			() => getItemList('pins')
     		).then(
-    			(pinsObjData) => UserStorageFactory.setUserinfo(pinsObjData, 'pins')
-    		).then(
     			() => getItemList('board')
-    		).then(
-    			(boardObjData) => UserStorageFactory.setUserinfo(boardObjData, 'board')
     		).then(
     			() => resolve()
     		);

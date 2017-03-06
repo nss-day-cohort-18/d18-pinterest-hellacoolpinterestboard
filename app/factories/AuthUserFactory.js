@@ -17,8 +17,8 @@ app.factory("AuthUserFactory", function($window, UserStorageFactory) {
 		city: '',
 		zip: ''
 	};
-	let currentUser = UserStorageFactory.getUserInfo('users').uid;
-	let isLoggedIn = false;
+let currentUser = '';
+let isLoggedIn = false;
 
 
 	//Args: {email: '', password: ''}

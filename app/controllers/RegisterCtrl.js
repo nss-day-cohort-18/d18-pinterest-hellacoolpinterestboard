@@ -24,7 +24,7 @@ app.controller("RegisterCtrl", function($scope, $window, AuthUserFactory, Handle
 
 		let rowToPush = [];
 		for (var category = 0; category < s.interests.length + 1; category++) {
-			if (!(s.interests[category] === undefined)) {
+			if (s.interests[category]) {
 				s.userInfo.interests[s.interests[category]] = false;
 				if (category === 0) {
 					rowToPush.push(s.interests[category]);
@@ -96,10 +96,7 @@ app.controller("RegisterCtrl", function($scope, $window, AuthUserFactory, Handle
 							s.userInfo.password = "";
 							HandleFBDataFactory.postNewItem(s.userInfo, 'users').then(
 								(profileObjFromFirebase) => {
-									console.log("Here is your profile info from firebase: ", profileObjFromFirebase);
-
-									profileObjFromFirebase.data.name =
-									// send User Info from firebase to be stored within localstorage
+									console.log("Here is your profile info from firebase: ", profileObjFromFirebase);									// send User Info from firebase to be stored within localstorage
 									UserStorageFactory.setUserinfo(s.userInfo, 'users');
 									s.userInfo = {};
 									$window.location.href = "#!/explore";
