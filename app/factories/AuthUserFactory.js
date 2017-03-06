@@ -23,11 +23,9 @@ app.factory("AuthUserFactory", function($window, UserStorageFactory) {
 	//Signs user out of Firebase
 	let logoutUser = function(){
 		console.log("logoutUser");
-		console.log("Everything is commented out. Check to make sure this will work first! logoutUser() AuthUserFactory.js");
-		// isLoggedIn = false;
-		// localStorage.removeItem('notes');
-		// localStorage.removeItem('profile');
-		// return firebase.auth().signOut();
+		isLoggedIn = false;		
+		localStorage.removeItem('users');
+		return firebase.auth().signOut();
 	};
 
 
@@ -36,25 +34,24 @@ app.factory("AuthUserFactory", function($window, UserStorageFactory) {
 	let changeLogin = (loginState) => {
 		isLoggedIn = loginState;
 	}; 
-	
+
+	let getLogin = () => isLoggedIn;
 
 	//Checks firebase onAuthStateChanged() and sets currentUser to uid 
 	//Return: boolean- true if logged in
 	let isAuthenticated = function () {
-		console.log("Within AuthUserFactory.js isAuthenticated():");
-		console.log("Everything is commented out. Check to make sure this will work first!");
-		// return new Promise ( (resolve, reject) => {
-		// 	firebase.auth().onAuthStateChanged( (user) => {
-		// 		console.log("Here is your user from AuthFactory: ", user);
-		// 		if (user){
-		// 			currentUser = user.uid;
-		// 			console.log("Here is your var currentUser (uid) from AuthUserFactory.js isAuthenticated(): ", currentUser);
-		// 			resolve(true);
-		// 		}else {
-		// 			resolve(false);
-		// 		}
-		// 	});
-		// });
+		return new Promise ( (resolve, reject) => {
+			firebase.auth().onAuthStateChanged( (user) => {
+				if (user){
+					isLoggedIn = true;
+					console.log("Here is your var currentUser from AuthUserFactory.js isAuthenticated(): ", user);
+					resolve(isLoggedIn);
+				}else {
+					isLoggedIn = false;
+					resolve(false);
+				}
+			});
+		});
 	};
 
 
@@ -69,6 +66,7 @@ app.factory("AuthUserFactory", function($window, UserStorageFactory) {
 					loginUser, 
 					logoutUser, 
 					changeLogin, 
+					getLogin,
 					isAuthenticated, 
 					authWithProvider
 				};

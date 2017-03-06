@@ -1,31 +1,31 @@
 "use strict";
 
 var app = angular.module("HellaCoolPinterestProject", ["ngRoute"]);
-	app.config(function($routeProvider){
-    $routeProvider.
-    when('/explore', {
-        templateUrl: '../partials/Explore.html',
-        controller: "ExploreCtrl"
-    }).
-    when('/newBoard', {
-    	templateUrl: '../partials/NewBoard.html',
-    	controller: 'NewBoardCtrl'
-    });
-});
-
+	// app.config(function($routeProvider){
+ //    $routeProvider.
+ //    when('/explore', {
+ //        templateUrl: '../partials/Explore.html',
+ //        controller: "ExploreCtrl"
+ //    }).
+ //    when('/newBoard', {
+ //    	templateUrl: '../partials/NewBoard.html',
+ //    	controller: 'NewBoardCtrl'
+ //    });
 
 //resolve for the app to check whether or not a user is logged in
-let isAuth = (AuthFactory) => new Promise ((resolve, reject) => {
+let isAuth = (AuthUserFactory, $location) => new Promise ((resolve, reject) => {
 	console.log("I am here");
-	AuthFactory.isAuthenticated()
+	AuthUserFactory.isAuthenticated()
 		.then((userExists) => {
 			console.log("userExists", userExists);
 			if (userExists) {
-				AuthFactory.changeLogin(true);
+				AuthUserFactory.changeLogin(true);
 				console.log("Authenticated, go ahead");
 				resolve();
 			} else {
-				console.log("Authentication rejected, go away.");
+				AuthUserFactory.changeLogin(false);
+				console.log("Authentication rejected, go away. Fucker.");
+				$location.path('/login');
 				reject();
 			}
 		});
@@ -40,7 +40,8 @@ app.config(function($routeProvider, $locationProvider) {
 		})
 		.when('/explore', {
 			templateUrl: '/partials/Explore.html',
-			controller: 'ExploreCtrl'
+			controller: 'ExploreCtrl',
+			resolve: {isAuth}
 		})
 		.when('/login', {
 			templateUrl: '/partials/Login.html',
@@ -48,7 +49,8 @@ app.config(function($routeProvider, $locationProvider) {
 		})
 		.when('/profile', {
 			templateUrl: '/partials/Profile.html',
-			controller: 'ProfileCtrl'
+			controller: 'ProfileCtrl',
+			resolve: {isAuth}
 		})
 		.otherwise('/register');
 });

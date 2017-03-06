@@ -54,9 +54,7 @@ app.controller("LoginCtrl", function($scope, $location, $window, AuthUserFactory
 			});
 	};
 
-
-	let myObj = {};
-	console.log(angular.isUndefined(myObj));
+	console.log($window);
 
 
 });
