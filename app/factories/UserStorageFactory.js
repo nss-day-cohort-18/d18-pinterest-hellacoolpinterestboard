@@ -21,7 +21,7 @@ app.factory("UserStorageFactory", function() {
 	};
 
 	//variables to hold users' info
-	let currentUserInfo = '';
+	let currentUserInfo = () => angular.fromJson(localStorage.getItem('users'));
 	let currentUserPins = '';
 	let currentUserBoard = '';
 
@@ -35,7 +35,7 @@ app.factory("UserStorageFactory", function() {
 			case 'board': 
 				return currentUserBoard;
 			case 'users': 
-				return currentUserInfo;
+				return currentUserInfo();
 		} 
 		// JSON.parse(localStorage.getItem(location));
 	};
@@ -45,8 +45,9 @@ app.factory("UserStorageFactory", function() {
 	let setUserinfo = (userInfoObj, location) => {
 		return new Promise((resolve) => {
 			switch(location) {
-				case 'users': 				
-					currentUserInfo = userInfoObj;
+				case 'users': 		
+					localStorage.removeItem('users');		
+					localStorage.setItem('users', angular.toJson(userInfoObj));
 					resolve();
 					break;
 				case 'board': 					

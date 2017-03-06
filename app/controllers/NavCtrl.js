@@ -1,20 +1,23 @@
 "use strict";
 
-app.controller("NavCtrl", function($scope, $window, AuthUserFactory, GoogleFactory){
+app.controller("NavCtrl", function($scope, $window, $rootScope, $location, $route, AuthUserFactory, GoogleFactory){
   // $scope.searchText = SearchTermData; //TO DO: inject SearchTermData once Auth is hooked up
   $scope.isLoggedIn = false;
+  
 
- //  firebase.auth().onAuthStateChanged( function(user){
-	// 	if (user) {
-	// 		$scope.isLoggedIn = true;
-	// 		console.log("currentUser logged in", user, $scope.isLoggedIn);
-	// 		$scope.$apply();
-	// 	}else{
-	// 		$scope.isLoggedIn = false;
-	// 		console.log("currentUser logged in", $scope.isLoggedIn);
-	// 		$window.location.href = "#!/login"; //TO DO: need to decide where this $location directs the user after they login
-	// 	}
-	// });
+  $rootScope.$on("$routeChangeSuccess", function(event, next, current) { 
+    console.log($location.path()); 
+    if ($location.path() === '/explore' || $location.path() === '/profile') {
+    	$scope.isLoggedIn = true;
+    } else {
+    	$scope.isLoggedIn = false;
+    }
+  });
+
+	$scope.logoutUser = () => {
+		$scope.isLoggedIn = false;
+		AuthUserFactory.logoutUser();
+	};
 
 
 	
