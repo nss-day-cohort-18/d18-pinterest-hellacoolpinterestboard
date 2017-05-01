@@ -1,0 +1,24 @@
+<div class="row" ng-repeat="row in rows">
+  <div class="col s6 m3" ng-repeat="category in row">
+    <div class="card">
+      <div>
+        <p class="card-content">I  <img src="app/img/heart.png" width="15px"/>  {{category}}!!</p>
+      </div>
+      <p class="card-action">
+        <input type="checkbox" id="{{category}}" ng-model="userInfo.interests[category]" ng-true-value="true">
+        <label for="{{category}}" id="category">{{category}}</label>
+      </p>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col s1 m1 offset-s5 offset-m5">
+    <a class="btn-floating btn-large waves-effect waves-light red darken-3 hoverable mirror-icon" ng-click="goBack()"><i class="large material-icons">trending_flat</i></a>
+  </div>
+  <div class="col s1 m1">
+    <a class="btn-floating btn-large waves-effect waves-light red darken-3 hoverable right" ng-click="clickExplore()"><i class="large material-icons">navigation</i></a>    
+  </div>
+</div>
+<div class="row">
+  <p id="explore-text">Start Pinning...</p> 
+</div>

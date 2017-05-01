@@ -137,6 +137,9 @@
 #explore-btn {
   margin-left: 45%; }
 
+.mirror-icon {
+    transform: rotateY(180deg); }
+
 #explore-text {
   text-align: center;
   margin-top: 0%;
