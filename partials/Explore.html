@@ -33,7 +33,7 @@
   <div class="col s3" ng-repeat="result in data">
     <div class="card">
       <div class="card-image">
-        <img src="{{result.image}}">
+        <img class="card-image-element" src="{{result.image}}">
         <span class="card-title">{{result.title}}</span>
         <a class="btn-floating halfway-fab waves-effect waves-light red hoverable" ng-click="addPin(result)"><img src="app/img/Asset.png" id="pin"></a>
       </div>
@@ -41,7 +41,7 @@
         <p>{{result.snippet}}</p>
       </div>
       <div class="card-action">
-        <a href="{{result.link}}">{{result.link}}</a>
+        <a href="{{result.link}}">Pinterest / {{result.linkDisplay}}</a>
       </div>
     </div>
   </div>

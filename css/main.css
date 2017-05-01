@@ -44,7 +44,7 @@
 
 .card-content {
   text-align: center;
-  min-height: 92px; }
+  min-height: 136px; }
 
 .card-action {
   border-radius: 10px;
@@ -65,6 +65,10 @@
   border-radius: 15px;
   border-color: white;
   border-style: solid; }
+
+.card-image-element  {
+  height: 390px;
+}
 
 #select-board {
   margin-top: 7%;
