@@ -12,23 +12,31 @@ app.factory("GoogleFactory", function($window, $q, $http, googleCredentials) {
     
     let googleDataArray = [];
 
+    let createLinkDisplay = (link) => {             
+        if (link.indexOf('explore') === -1) {
+            let myTerms = link.split('.com/');
+            return myTerms[1];
+        } else {
+            let myTerms = link.split('explore/');
+            return myTerms[1];            
+        }
+    };
+
     let GoogleAPI = (searchText, searchStart) => {
-        return $q((resolve, reject)=>{
-            console.log("searchStart", searchStart);
+        return $q((resolve, reject)=>{            
             $http.get(`${googleCredentials.URL}`+searchText+`&start=${searchStart}`)
-            .then((googleObject)=>{
-            console.log("googleObject", googleObject);
-                // googleDataArray = [];
+            .then((googleObject)=>{            
+            // googleDataArray = [];
             for (var obj in googleObject.data.items) {
                 let googleDataObj = {};
                 googleDataObj.title = googleObject.data.items[obj].title;
                 googleDataObj.link = googleObject.data.items[obj].link;
+                googleDataObj.linkDisplay = createLinkDisplay(googleObject.data.items[obj].link);
                 googleDataObj.image = googleObject.data.items[obj].pagemap.cse_image[0].src;
                 googleDataObj.snippet = googleObject.data.items[obj].snippet;
                 googleDataArray.unshift(googleDataObj);
-                }
-                console.log("googleDataArray", googleDataArray);
-                resolve(googleDataArray);
+            }                
+            resolve(googleDataArray);
             })
             .catch((error)=>{
                 reject(error);
