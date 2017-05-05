@@ -46,6 +46,12 @@
   text-align: center;
   min-height: 136px; }
 
+.card-content p {
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  max-height: 3.6em;
+}
+
 .card-action {
   border-radius: 10px;
   text-align: center;

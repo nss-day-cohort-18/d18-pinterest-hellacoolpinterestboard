@@ -4,6 +4,20 @@ app.controller('ExploreCtrl', function($scope, $window, GoogleFactory, UserStora
 
     $scope.data = GoogleFactory.getGoogleDataArray();
 
+    if ($scope.data.length === 0) {
+        let userInfo = UserStorageFactory.getUserInfo('users'),
+            interests = [];
+        console .log(userInfo);
+        Object.keys(userInfo.interests).forEach((interest) => {
+            if (userInfo.interests[interest]) interests.push(interest);
+        });
+
+        GoogleFactory.GoogleAPI(interests.join(' '), 1).then(
+            () => console.log("Done")
+        );
+        
+    }
+
     /*This function fires when the search button on the explore partial is clicked. It 
     grabs the text from the text input and sends it to the GoogleAPI function, which 
     appends it as a query. It then sets the returned array of objects as $scope.data, 
