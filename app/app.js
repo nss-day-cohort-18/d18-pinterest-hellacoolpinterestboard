@@ -24,29 +24,29 @@ let isAuth = (AuthUserFactory, $location) => new Promise ((resolve, reject) => {
 
 app.config(function($routeProvider, $locationProvider) {
 	$routeProvider
-		.when('/register', {
-			templateUrl: '/partials/Register.html',
-			controller: 'RegisterCtrl'
-		})
-		.when('/newBoard', {
+	.when('/register', {
+		templateUrl: '/partials/Register.html',
+		controller: 'RegisterCtrl'
+	})
+	.when('/newBoard', {
     	templateUrl: '../partials/NewBoard.html',
     	controller: 'NewBoardCtrl'
     	})
-		.when('/explore', {
-			templateUrl: '/partials/Explore.html',
-			controller: 'ExploreCtrl',
-			resolve: {isAuth}
-		})
-		.when('/login', {
-			templateUrl: '/partials/Login.html',
-			controller: 'LoginCtrl'
-		})
-		.when('/profile', {
-			templateUrl: '/partials/Profile.html',
-			controller: 'ProfileCtrl',
-			resolve: {isAuth}
-		})
-		.otherwise('/register');
+	.when('/explore', {
+		templateUrl: '/partials/Explore.html',
+		controller: 'ExploreCtrl',
+		resolve: {isAuth}
+	})
+	.when('/login', {
+		templateUrl: '/partials/Login.html',
+		controller: 'LoginCtrl'
+	})
+	.when('/profile', {
+		templateUrl: '/partials/Profile.html',
+		controller: 'ProfileCtrl',
+		resolve: {isAuth}
+	})
+	.otherwise('/login');
 });
 
 app.run(($location, FBCreds) => {

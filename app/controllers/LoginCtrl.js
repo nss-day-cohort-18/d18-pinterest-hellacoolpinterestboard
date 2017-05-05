@@ -18,10 +18,10 @@ app.controller("LoginCtrl", function($scope, $location, $window, AuthUserFactory
   		(userData) => {
   			console.log("Here is your user data: ", userData);
   			UserStorageFactory.setUserinfo(userData, 'users').then(
-						() => HandleFBDataFactory.getUserInfo()
+					() => HandleFBDataFactory.getUserInfo()
   				).then(
-							() => $window.location.href = '#!/explore'
-						);
+					() => $window.location.href = '#!/explore'
+				);
 			},
 			(error) => console.log("Error creating user: ", error)
     );
@@ -36,11 +36,11 @@ app.controller("LoginCtrl", function($scope, $location, $window, AuthUserFactory
 			(userInfo) => {
 	    	console.log("logged in user:", userInfo);
 	    	UserStorageFactory.setUserinfo(userInfo.user, 'users').then(
-		    	//Get all info associated with this user. Pins/boards/userinfo
-		    	() => HandleFBDataFactory.getUserInfo()
-			    	).then(
-		    			() => $window.location.href = '#!/explore'
-		    		);	    	
+			    	//Get all info associated with this user. Pins/boards/userinfo
+			    	() => HandleFBDataFactory.getUserInfo()
+			).then(
+		    		() => $window.location.href = '#!/explore'
+		    	);	    	
 		  }
 		).catch(
 			(error) => {
@@ -53,9 +53,6 @@ app.controller("LoginCtrl", function($scope, $location, $window, AuthUserFactory
 	  		// ...
 			});
 	};
-
-	console.log($window);
-
 
 });
 
