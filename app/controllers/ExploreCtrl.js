@@ -1,36 +1,75 @@
 "use strict";
 
-app.controller('ExploreCtrl', function($scope, $window, GoogleFactory, UserStorageFactory, HandleFBDataFactory, AuthUserFactory){
+app.controller('ExploreCtrl', function($scope, $window, $timeout, GoogleFactory, UserStorageFactory, HandleFBDataFactory, AuthUserFactory) {
 
-    $scope.data = GoogleFactory.getGoogleDataArray();
+    // This function listens for when the user scrolls to the bottom of the page, then 
+    // calls functions to append pins to the bottom
+    $(window).scroll(function() {   
+       if($(window).scrollTop() + $(window).height() == $(document).height()) {
+           if ($scope.usersInterests) {
+                $scope.getInterestsToUpdatePage();                
+           }
+           else $scope.searchGoogle();                       
+       }
+    });
 
-    if ($scope.data.length === 0) {
+    $scope.data = [];
+    $scope.searchInterestsStart = 1;
+    $scope.searchInputStart = 1;
+    // This is to help determine what is currently on the page.. Whether it's a 
+    // search, or auto populated with the user's interests.
+    $scope.usersInterests = true;
+
+    $scope.getInterestsToUpdatePage = () => {            
+        // Resets $scope.data array  to empty so you can add in pins directly related
+        // to your interests
+        if (!$scope.usersInterests) {
+            $scope.data = [];
+            $scope.searchInputStart = 1;
+        }
+        $scope.usersInterests = true;
         let userInfo = UserStorageFactory.getUserInfo('users'),
-            interests = [];
-        console .log(userInfo);
+            interests = [];  
+        // Take all of user's interests, and push them to interests array     
         Object.keys(userInfo.interests).forEach((interest) => {
             if (userInfo.interests[interest]) interests.push(interest);
         });
+        // Join the interests together and send them to Google api search 
+        GoogleFactory.GoogleAPI(interests.join(' '), $scope.searchInterestsStart).then(
+            (googleDataArray) => {
+                // Push them to your data keyArray
+                googleDataArray.forEach((pin) => $scope.data.push(pin));                                   
+                // apply $scope changes, and up the search                
+                $timeout( () => $scope.searchInterestsStart += 10 );                    
+            }
+        );        
+    };
+    // call method on page load
+    $scope.getInterestsToUpdatePage();
 
-        GoogleFactory.GoogleAPI(interests.join(' '), 1).then(
-            () => console.log("Done")
-        );
-        
-    }
+
+
 
     /*This function fires when the search button on the explore partial is clicked. It 
     grabs the text from the text input and sends it to the GoogleAPI function, which 
     appends it as a query. It then sets the returned array of objects as $scope.data, 
     which binds to the Explore partial via ng-repeat. Each subsequent search adds 10 
     addition Google results. Thus, searchStart+=10. */
-    let searchStart = 1;
-    $scope.searchGoogle = function(){
+    let searchInputStart = 1;
+    $scope.searchGoogle = function() {
+        if ($scope.usersInterests) {
+            $scope.data = [];
+            $scope.searchInterestsStart = 1;            
+        }
+        $scope.usersInterests = false;
         let searchText = $scope.searchText;
-        GoogleFactory.GoogleAPI(searchText, searchStart).
+        GoogleFactory.GoogleAPI(searchText, $scope.searchInputStart).
             then(
-                () => { searchStart += 10;
-                        $window.location.href = "#!/explore";
-                    }
+                (googleDataArray) => { 
+                    googleDataArray.forEach((pin) => $scope.data.push(pin));
+                    console.log($scope.data);                    
+                    $timeout( () => $scope.searchInputStart += 10 );                    
+                }
             );
     };
 

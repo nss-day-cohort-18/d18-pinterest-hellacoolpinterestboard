@@ -30,7 +30,7 @@
  </div>
 </form>
 <div class="row" ng-show="!boardExists">
-  <div class="col s3" ng-repeat="result in data">
+  <div class="col s3" ng-repeat="result in data track by $index">
     <div class="card">
       <div class="card-image">
         <img class="card-image-element" src="{{result.image}}">
