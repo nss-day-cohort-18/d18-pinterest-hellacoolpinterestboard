@@ -44,14 +44,23 @@
 
 .card-content {
   text-align: center;
-  min-height: 92px; }
+  min-height: 92px; 
+  max-height: 6em; }
+
+.card-content p {
+  text-overflow: ellipsis;
+  line-height: 1.5em;
+  max-height: 4.5em;
+  overflow: hidden; }
 
 .card-action {
   border-radius: 10px;
   text-align: center;
   text-overflow: ellipsis;
+  height: 59px;
   font-size: 9px;
-  color: grey; }
+  color: grey;
+  padding: 16px 0; }
 
 .card-action:hover {
   box-shadow: inset 0 0 15px 3px rgba(0, 0, 0, 0.05);
@@ -64,7 +73,11 @@
   margin-right: 3px;
   border-radius: 15px;
   border-color: white;
-  border-style: solid; }
+  border-style: solid;
+  height: 390px; }
+
+.card-image-element {
+  height: 390px; }
 
 #select-board {
   margin-top: 7%;
