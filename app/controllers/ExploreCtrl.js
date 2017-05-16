@@ -4,14 +4,14 @@ app.controller('ExploreCtrl', function($scope, $window, $timeout, GoogleFactory,
 
     // This function listens for when the user scrolls to the bottom of the page, then 
     // calls functions to append pins to the bottom
-    $(window).scroll(function() {   
-       if($(window).scrollTop() + $(window).height() == $(document).height()) {
-           if ($scope.usersInterests) {
-                $scope.getInterestsToUpdatePage();                
-           }
-           else $scope.searchGoogle();                       
-       }
-    });
+    // $(window).scroll(function() {   
+    //    if($(window).scrollTop() + $(window).height() == $(document).height()) {
+    //        if ($scope.usersInterests) {
+    //             $scope.getInterestsToUpdatePage();                
+    //        }
+    //        else $scope.searchGoogle();                       
+    //    }
+    // });
 
     $scope.data = [];
     $scope.searchInterestsStart = 1;
@@ -45,7 +45,7 @@ app.controller('ExploreCtrl', function($scope, $window, $timeout, GoogleFactory,
         );        
     };
     // call method on page load
-    $scope.getInterestsToUpdatePage();
+    // $scope.getInterestsToUpdatePage();
 
 
 

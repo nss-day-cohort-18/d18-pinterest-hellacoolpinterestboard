@@ -12,23 +12,33 @@ app.controller("ProfileCtrl", function($scope, $window, $timeout, AuthUserFactor
 		let overallDimension = 0;
 		console.log("I am here");
 		$('.profile-board-img').each(function(){
-		   overallDimension = $(this).width();
-	        $(this).height($(this).width());
+		   let width = $(this).width();
+		   overallDimension = width;		   
+	        $(this).height( width );
 		});
-		$('.card-container').each(function(){		   
-	        $(this).height(overallDimension);
+		console.log("Here is your square dimension: ", overallDimension);
+		$('.card-img-container').each(function(){		   
+	        $(this).height( overallDimension );
 		});
 		$('.profile-image-board-row').each(function() {
 		  $(this).height(overallDimension * 3);
 		});
 	}, 300);
 
-	s.hoverEffects = () => {
+	s.hoverEffects = (event) => {
 		console.log("Enter");
+		let img = $('.profile-board-img');
+		$( event.target ).find( img ).fadeTo("fast", 0.33);
+		$( event.target ).find( '.profile-board-title' ).show();
+		$( event.target ).find( '.profile-board-delete' ).show();
 	};
 
-	s.dismissHoverEffects = () => {
+	s.dismissHoverEffects = (event) => {
 		console.log("Exit");
+		let img = $('.profile-board-img');
+		$( event.target ).find( img ).fadeTo("fast", 1);
+		$( event.target ).find( '.profile-board-title' ).hide();
+		$( event.target ).find( '.profile-board-delete' ).hide();
 	};
 
 
