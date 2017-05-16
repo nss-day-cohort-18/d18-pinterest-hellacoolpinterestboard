@@ -1,42 +1,36 @@
 
-
-<div class="row">
-  <div class="col s4" ng-repeat="board in iterableBoards">
-    <div class="row" ng-click="boardClicked(board)">
-      <div class="row">
-        <h3>{{board.title}}</h3>
-      </div>
-      <div class="row" id="{{boardIDs[$index]}}">
-        <div class="card col s4" ng-repeat="pin in board.pins">        
-          <img class="profile-board-img" src="{{pin.image}}">        
+<div class="row profile-board-row">
+  <div class="col s4 profile-image-board" 
+         ng-repeat="board in iterableBoards"
+         ng-mouseenter="hoverEffects($event)"
+         ng-mouseleave="dismissHoverEffects($event)">
+    <div class="row profile-image-board-row center" id="{{boardIDs[$index]}}"
+           ng-click="boardClicked(board)">
+        <div class="col s4 card-img-container" ng-repeat="pin in board.pins | limitTo:imageQuantity">        
+          <img class="profile-board-img" src="{{pin.image}}">                  
         </div>      
-      </div>      
-    </div>
-    <div class="row">
-      <a class="waves-effect waves-light btn" ng-click="deleteBoard(boardIDs[$index])">Delete Me!!</a>
+        <h3 class="profile-board-title">{{board.title}}</h3>
+        <div class="row profile-board-delete">
+          <a class="waves-effect waves-light btn" ng-click="deleteBoard(boardIDs[$index])">Delete Me!!</a>          
+        </div>
     </div>
   </div>
 </div>
 
-
 <div class="row" ng-repeat="row in pinsToDisplay">
-  <div class="col s3" ng-repeat="pin in row">
+  <div class="col s4" ng-repeat="pin in row">
     <div class="card">
       <div class="card-image">
-        <div class="row">
-          <div class="card col s10 offset-s1">        
-            <img class="" src="{{pin.image}}">        
-          </div>  
-        </div>
-        <span class="card-title">{{pin.title}}</span>
+        <img class="card-image-element" src="{{pin.image}}">
+        <span class="card-title">{{pin.title}}</span>        
       </div>
       <div class="card-content">
         <p>{{pin.snippet}}</p>
       </div>
       <div class="card-action">
-        <a href="{{pin.link}}">{{pin.link}}</a>
+        <a href="{{pin.link}}">Pinterest / {{pin.linkDisplay}}</a>
       </div>
     </div>
-  </div>  
+  </div>
 </div>
 

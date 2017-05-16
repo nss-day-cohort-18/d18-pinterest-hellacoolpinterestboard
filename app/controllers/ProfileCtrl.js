@@ -1,10 +1,45 @@
 "use strict";
 
-app.controller("ProfileCtrl", function($scope, $window, AuthUserFactory, UserStorageFactory, HandleFBDataFactory) {
+app.controller("ProfileCtrl", function($scope, $window, $timeout, AuthUserFactory, UserStorageFactory, HandleFBDataFactory) {
 	// console.log("UserDetailsCtrl");
 	let s = $scope;
 	s.info = [];
 	s.currentUser = UserStorageFactory.getUserInfo('users').uid;
+
+	s.imageQuantity = 9;
+
+	$timeout(function() {
+		let overallDimension = 0;
+		console.log("I am here");
+		$('.profile-board-img').each(function(){
+		   let width = $(this).width();
+		   overallDimension = width;		   
+	        $(this).height( width );
+		});
+		console.log("Here is your square dimension: ", overallDimension);
+		$('.card-img-container').each(function(){		   
+	        $(this).height( overallDimension );
+		});
+		$('.profile-image-board-row').each(function() {
+		  $(this).height(overallDimension * 3);
+		});
+	}, 300);
+
+	s.hoverEffects = (event) => {
+		console.log("Enter");
+		let img = $('.profile-board-img');
+		$( event.target ).find( img ).fadeTo("fast", 0.33);
+		$( event.target ).find( '.profile-board-title' ).show();
+		$( event.target ).find( '.profile-board-delete' ).show();
+	};
+
+	s.dismissHoverEffects = (event) => {
+		console.log("Exit");
+		let img = $('.profile-board-img');
+		$( event.target ).find( img ).fadeTo("fast", 1);
+		$( event.target ).find( '.profile-board-title' ).hide();
+		$( event.target ).find( '.profile-board-delete' ).hide();
+	};
 
 
 	s.boards = UserStorageFactory.getUserInfo('board');
