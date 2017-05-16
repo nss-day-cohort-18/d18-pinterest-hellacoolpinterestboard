@@ -1,10 +1,35 @@
 "use strict";
 
-app.controller("ProfileCtrl", function($scope, $window, AuthUserFactory, UserStorageFactory, HandleFBDataFactory) {
+app.controller("ProfileCtrl", function($scope, $window, $timeout, AuthUserFactory, UserStorageFactory, HandleFBDataFactory) {
 	// console.log("UserDetailsCtrl");
 	let s = $scope;
 	s.info = [];
 	s.currentUser = UserStorageFactory.getUserInfo('users').uid;
+
+	s.imageQuantity = 9;
+
+	$timeout(function() {
+		let overallDimension = 0;
+		console.log("I am here");
+		$('.profile-board-img').each(function(){
+		   overallDimension = $(this).width();
+	        $(this).height($(this).width());
+		});
+		$('.card-container').each(function(){		   
+	        $(this).height(overallDimension);
+		});
+		$('.profile-image-board-row').each(function() {
+		  $(this).height(overallDimension * 3);
+		});
+	}, 300);
+
+	s.hoverEffects = () => {
+		console.log("Enter");
+	};
+
+	s.dismissHoverEffects = () => {
+		console.log("Exit");
+	};
 
 
 	s.boards = UserStorageFactory.getUserInfo('board');
